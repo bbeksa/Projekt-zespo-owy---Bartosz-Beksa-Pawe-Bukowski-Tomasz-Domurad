@@ -1,1 +1,1 @@
-# Projekt-zespo-owy---Bartosz-Beksa-Pawe-Bukowski-Tomasz-Domurad
+# Projekt-zespolowy---Bartosz-Beksa-Pawel-Bukowski-Tomasz-Domurad
