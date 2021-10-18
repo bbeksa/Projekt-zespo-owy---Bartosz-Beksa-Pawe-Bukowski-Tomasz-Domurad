@@ -6,9 +6,13 @@ Potencjalnymi użytkownikami są posiadacze jednosobowych działalności gospoda
 
 Funkcjonalności:
 -skanowanie faktur, program pobiera zdjęcie lub skan faktury i sczytuje dane z dokumentu
+
 -przechowywanie dokumentów
+
 -tworzenie nowych od zera
+
 -uzupełnianie i modyfikowanie już istniejących faktur 
+
 -wyszukiwanie faktur po datach lub nazwach firm
 
 Technologie:
