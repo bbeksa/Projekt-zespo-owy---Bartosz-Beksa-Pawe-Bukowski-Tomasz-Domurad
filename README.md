@@ -1,4 +1,5 @@
-# Projekt-zespolowy---Bartosz-Beksa-Pawel-Bukowski-Tomasz-Domurad
+# Bartosz Beksa, Paweł Bukowski, Tomasz Domurad
+# Projekt zespołowy
 
 Aplikacja do zarządzania fakturami
 
