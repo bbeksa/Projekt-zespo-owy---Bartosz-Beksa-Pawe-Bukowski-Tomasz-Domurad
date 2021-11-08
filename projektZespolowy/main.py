@@ -1,4 +1,3 @@
-# adds more image processing capabilities
 import pytesseract as pytesseract
 from PIL import Image, ImageEnhance
 
