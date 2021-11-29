@@ -26,6 +26,7 @@ Funkcjonalności:
 Technologie:
 
 -Python z użyciem biblotek Pillow i pytesseract
+-framework Django 
 
 <br />
 
