@@ -1,0 +1,22 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lista faktur</title>
+</head>
+<h1>Faktury:</h1>
+    <ul>
+        {% for invoice in invoice_list %}
+            <li><a href="/faktury/faktura/{{ invoice.id }}/">{{ invoice.number }}</a></li>
+			<a href="/faktury/dodajuslugedofaktury/{{ invoice.id }}/"><button>Dodaj towar</button></a>
+			<a href="/faktury/edytujfakture/{{ invoice.id }}/"><button>Edytuj</button></a>
+			<a href="/faktury/usunfakture/{{ invoice.id }}/"><button>Usuń</button></a>
+        {% endfor %}
+		<li><a href="/faktury/dodajfakture">Dodaj fakturę</a></li>
+		<li><a href="/faktury/dodajskan">Dodaj fakturę przesyłająć skan dokumentu</a></li>
+    </ul>
+<h2>Materiały do faktur:</h2>
+<ul>
+	<li><a href="/faktury/listakontrahentow">Lista kontrahentów</a></li>
+	<li><a href="/faktury/listaproduktow">Lista produktów</a></li>
+</ul>
+</html>

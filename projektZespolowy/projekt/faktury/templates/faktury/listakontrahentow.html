@@ -1,0 +1,15 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lista kontrahentów</title>
+</head>
+<h1>Kontrahenci:</h1>
+    <ul>
+        {% for data in data_list %}
+            <li>{{ data.name }}</li>
+			<a href="/faktury/edytujkontrahenta/{{ data.id }}/"><button>Edytuj</button></a>
+			<a href="/faktury/usunkontrahenta/{{ data.id }}/"><button>Usuń</button></a>
+        {% endfor %}
+		<li><a href="/faktury/dodajdane">Dodaj kontrahenta</a></li>
+    </ul>
+</html>

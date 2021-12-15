@@ -1,0 +1,19 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dodaj fakturę</title>
+</head>
+<body>
+  <main>
+<h1>Dodaj fakturę</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {{ form1.as_p }}
+  <button type="submit">Dodaj</button>
+</form>
+<p><a href="/faktury/dodajdane">Dodaj kupca/sprzedawce</a></p>
+<p><a href="/faktury/dodajusluge">Dodaj przedmiot</a></p>
+  </main>
+</body>
+</html>

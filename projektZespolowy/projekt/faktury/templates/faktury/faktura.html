@@ -6,14 +6,15 @@
 <body>
   <main>
 <h1>Fakturę</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {{ form1.as_p }}
-  <button type="submit">Dodaj</button>
-</form>
-<p><a href="/faktury/dodajdane">Dodaj kupca/sprzedawce</a></p>
-<p><a href="/faktury/dodajusluge">Dodaj przedmiot</a></p>
+	<ul>
+        <li>{{ invoice.number }}</li>	
+		<li>{{ invoice.date_of_issue }}</li>
+		<li>{{ invoice.date_of_delivery }}</li>
+		<li>{{ invoice.date_of_payment }}</li>
+		{% if invoice.image %}
+			<li><img src="http://127.0.0.1:8000/faktury{{ invoice.image.url }}" style="width: 100%; float: left; margin-right: 10px;" /></li>
+		{% endif %}
+    </ul>
   </main>
 </body>
 </html>
