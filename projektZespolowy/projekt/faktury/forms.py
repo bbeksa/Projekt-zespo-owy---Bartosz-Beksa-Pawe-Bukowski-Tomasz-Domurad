@@ -11,7 +11,7 @@ class CityForm(forms.ModelForm):
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
-        fields = ['apartment_number', 'building_number', 'city']
+        fields = ['apartment_number', 'building_number', 'streetname', 'city']
 
 
 class Personal_DataForm(forms.ModelForm):

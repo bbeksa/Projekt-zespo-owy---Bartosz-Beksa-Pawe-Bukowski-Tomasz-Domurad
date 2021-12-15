@@ -1,0 +1,80 @@
+Faktura
+Nr: FV_1/08/2020
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Miejsce wystawienia: Poznań
+Data wystawienia: 15-08-2020
+Data sprzedaży: 15-08-2020
+Sprzedawca Nabywca
+P.H.U. Janusz Pietruszka Witold Wiadro
+Krzywa 12 Kwiatowa 420
+60-135 Poznań 67-240 Kozie Doły
+NIP 4211123842
+Lp. | Nazwa towaru / usługi Jm | llość | Cena netto VAT Wartość netto | Wartość VAT | Wartość brutto
+1. towar1 szt. 1 100,00 5% 100,00 5,00 105,00
+2. towar2 szt. 1 80,00 — 8% 80,00 6,40 86,40
+3. towar3 szt. 1 20,00 — 23% 20,00 4,60 24,60
+Razem x 200,00 16,00 216,00
+Wtym 3% 20,00 4,60 24,60
+8% 80,00| 6,40 86,40
+5% 100,00 5,00 105,00
+Razem: 216,00 PLN Kwota słownie: dwieście szesnaście PLN 34/100
+Do zapłaty: 216,00 PLN
+Forma płatności: przelew
+Termin zapłaty::  16-08-2020
+
+Numer konta:
+Bank:
+
+21376921156942021376969420
+PKO Bank Polski
+
+ 
+
+Osoba upoważniona do wystawienia
+
+Osoba upoważniona do odbioru
+
+ 
+

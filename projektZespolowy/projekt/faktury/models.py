@@ -16,6 +16,7 @@ class City(models.Model):
 
 
 class Address(models.Model):
+    streetname = models.CharField(max_length=200)
     apartment_number = models.IntegerField(null=True, blank=True)
     building_number = models.IntegerField(default=0)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city')
@@ -24,8 +25,13 @@ class Address(models.Model):
         return str(self.city.name) + " " + str(self.apartment_number) + "/" + str(self.building_number)
 
     @classmethod
-    def create(cls, apartment_number, building_number, city):
-        address = cls(apartment_number=apartment_number, building_number=building_number, city=city)
+    def create(cls, apartment_number, building_number, streetname, city):
+        address = cls(apartment_number=apartment_number, building_number=building_number, streetname=streetname, city=city)
+        return address
+
+    @classmethod
+    def create_no_ap_number(cls, building_number, streetname, city):
+        address = cls(building_number=building_number, streetname=streetname, city=city)
         return address
 
 
