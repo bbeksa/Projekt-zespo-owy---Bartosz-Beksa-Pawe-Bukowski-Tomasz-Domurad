@@ -4,6 +4,7 @@ from django.views import generic
 from django.template import loader
 from .forms import *
 import datetime
+from .dataFromText1 import DatafromTextW1
 
 from .models import *
 
@@ -102,7 +103,7 @@ def Invoice_delete_form(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     if request.method == "POST":
         invoice.delete()
-        return redirect('faktury:list')
+        return redirect('faktury:lista')
     return render(request, 'faktury/usunfakture.html', {'invoice': invoice})
 
 
@@ -111,7 +112,7 @@ def Invoice_edit_form(request, invoice_id):
     form = InvoiceForm(request.POST, instance=invoice)
     if form.is_valid():
         form.save()
-        return redirect('faktury:list')
+        return redirect('faktury:lista')
     return render(request, 'faktury/edytujfakture.html', {'form': form})
 
 
@@ -136,7 +137,7 @@ def Data_delete_form(request, personal_data_id):
     personal_data = get_object_or_404(Personal_Data, pk=personal_data_id)
     if request.method == "POST":
         personal_data.delete()
-        return redirect('faktury:list')
+        return redirect('faktury:lista')
     return render(request, 'faktury/usunkontrahenta.html', {'personal_data': personal_data})
 
 
@@ -158,27 +159,36 @@ def upload_with_image(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
+            data = DatafromTextW1("/text_result2.txt")
             image = request.FILES['file']
-            #wyłuskanie danych ze skanu
-            seller_city = City.create("cityname", "postcode")
+            # wyłuskanie danych ze skanu
+            seller_city = City.create(data[7], data[6])
             seller_city.save()
-            seller_address = Address.create(1, 2, seller_city)
+            seller_address = Address.create_no_ap_number(data[9], data[8], seller_city)
             seller_address.save()
-            buyer_city = City.create("cityname", "postcode")
+            buyer_city = City.create(data[13], data[12])
             buyer_city.save()
-            buyer_address = Address.create(3, 4, buyer_city)
+            buyer_address = Address.create_no_ap_number(data[15], data[14], buyer_city)
             buyer_address.save()
-            seller = Personal_Data.create("seller_name", "nip", seller_address)
+            seller = Personal_Data.create(data[4], data[16], seller_address)
             seller.save()
-            buyer = Personal_Data.create_no_nip("buyer name", buyer_address)
+            buyer = Personal_Data.create_no_nip(data[10], buyer_address)
             buyer.save()
-            invoice = Invoice.create_with_image("01/12/2021", 2021-12-13, 2021-12-13, 2021-12-13, seller, buyer, image)
+            invoice = Invoice.create(data[0], '2021-12-12', '2021-12-12', '2021-12-12', seller, buyer)
             invoice.save()
-            service = Service.create("coś", 12, 0.23)
-            service.save()
-            addservice = Service_Invoice.create(service, 50, invoice)
-            addservice.save()
-            return HttpResponseRedirect('faktury:list')
+            service1 = Service.create(data[17], 10.00, 0.32)
+            service1.save()
+            addservice1 = Service_Invoice.create(service1, data[18], invoice)
+            addservice1.save()
+            service2 = Service.create(data[21], 10.00, 0.23)
+            service2.save()
+            addservice2 = Service_Invoice.create(service2, data[22], invoice)
+            addservice2.save()
+            service3 = Service.create(data[25], 10.00, 0.23)
+            service3.save()
+            addservice3 = Service_Invoice.create(service3, data[26], invoice)
+            addservice3.save()
+            return redirect('faktury:lista')
     else:
-        form = UploadFileForm()
+        form = UploadFileForm(request.POST, request.FILES)
     return render(request, 'faktury/dodajskan.html', {'form': form})
