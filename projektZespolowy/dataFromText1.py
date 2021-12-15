@@ -1,6 +1,9 @@
+import os
+
+
 def DatafromTextW1(nazwa):
 
-    file = open(nazwa)
+    file = open(os.path.dirname(__file__) + nazwa)
 
     content = file.readlines()
 
@@ -21,8 +24,14 @@ def DatafromTextW1(nazwa):
     sprzedawcaKodPocztowy = content[51].split(None, 3)[0]
     sprzedawcaMiasto = content[51].split(None, 3)[1]
 
+    sprzedawcaUlica = content[50].split()[0]
+    sprzedawcaNrUlicy = content[50].split()[1]
+
     nabywcaKodPocztowy = content[51].split(None, 3)[2]
     nabywcaMiasto = content[51].split(None, 3)[3]
+
+    nabywcaUlica = content[50].split()[2]
+    nabywcaNrUlicy = content[50].split()[3]
 
     NIP = content[52].split(None, 1)[1]
 
@@ -55,8 +64,8 @@ def DatafromTextW1(nazwa):
     bank = content[70]
 
     return [numerFaktury, miasto, dataWystawienia, dataSprzedazy,
-            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto,
-            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, NIP,
+            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy,
+            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy, NIP,
             nazwaTowaru1, ilosc1, cenaNetto1, VAT1,
             nazwaTowaru2, ilosc2, cenaNetto2, VAT2,
             nazwaTowaru3, ilosc3, cenaNetto3, VAT3,
