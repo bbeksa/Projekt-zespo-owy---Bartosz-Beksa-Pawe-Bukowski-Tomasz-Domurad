@@ -1,4 +1,4 @@
-def DatafromTexT1(nazwa):
+def DatafromTextW1(nazwa):
 
     file = open(nazwa)
 
