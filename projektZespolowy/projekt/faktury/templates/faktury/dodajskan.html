@@ -1,0 +1,16 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dodaj skan</title>
+</head>
+<body>
+  <main>
+<h1>Dodaj skan</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Dodaj</button>
+</form>
+  </main>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Usuń kontrahenta</title>
+</head>
+<body>
+  <main>
+<h2>Usuń kontrahent</h2>
+<p>Czy na pewno chcesz usunąć kontrahent?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Usuń</button>
+</form>
+  </main>
+</body>
+</html>
