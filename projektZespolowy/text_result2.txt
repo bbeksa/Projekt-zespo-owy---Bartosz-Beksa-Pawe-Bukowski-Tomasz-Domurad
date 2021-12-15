@@ -1,61 +1,80 @@
-Faktura nr: 71032018
-owsinsanne mins MEKROS
+Faktura
+Nr: FV_1/08/2020
 
  
 
  
 
-Data sprzedaty / wykonania slug: 2018-09-15
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Miejsce wystawienia: Poznań
+Data wystawienia: 15-08-2020
+Data sprzedaży: 15-08-2020
 Sprzedawca Nabywca
+P.H.U. Janusz Pietruszka Witold Wiadro
+Krzywa 12 Kwiatowa 420
+60-135 Poznań 67-240 Kozie Doły
+NIP 4211123842
+Lp. | Nazwa towaru / usługi Jm | llość | Cena netto VAT Wartość netto | Wartość VAT | Wartość brutto
+1. towar1 szt. 1 100,00 5% 100,00 5,00 105,00
+2. towar2 szt. 1 80,00 — 8% 80,00 6,40 86,40
+3. towar3 szt. 1 20,00 — 23% 20,00 4,60 24,60
+Razem x 200,00 16,00 216,00
+Wtym 3% 20,00 4,60 24,60
+8% 80,00| 6,40 86,40
+5% 100,00 5,00 105,00
+Razem: 216,00 PLN Kwota słownie: dwieście szesnaście PLN 34/100
+Do zapłaty: 216,00 PLN
+Forma płatności: przelew
+Termin zapłaty::  16-08-2020
 
-POMOC AFAKTURY.PL AVANO SPOLKA Z OGRANICZONA
-Kosciuszki 45/15 ODPOWIEDZIALNOSCIA
+Numer konta:
+Bank:
 
-01-012 Opole UL Clenista 16/4
-
-NIP; 112-112-12-12 02-499 Warszawa
-
-tel: 123-123-123 NIP: 7010277497
-
-�e-mail: pomoc@examplecom �e-mait avanogexample.p|
-
-bane nazwa banku
-Nrkonta: 11 2222 9933-4444 5555 6666 7777
-
- 
-
-�Nazwo tonaeufastig lose 'm�Conaretio VAT �Kwolanetio _Kwota VAT Kwotabritto
-toward 100 st 100.00 23% 100.00 2300 12800
-stugat 100 st 100.00 23% � 100.00 2300 12300
-ustugas 500 at 10.00 23% 5000 1150 6150
-produkt 600 st 3000 23% 18000 4140 22140
-produkt2 600 st 40.00 23% 24000 5520 29520
-
-=
-
-tacznle: 19.00
+21376921156942021376969420
+PKO Bank Polski
 
  
 
- 
+Osoba upoważniona do wystawienia
 
-23% 67000 154.10 __82410
-fazem 67000 �15440 �824.10
-�Spos0b zoptaty: preclow
-Termin zaptaty. 14 dri
-2018-05-29
-Razem do. ; 824.10 PL
-
-Kwota slownie: osiemset dwadsiescia cztery PLN
-10/100
-
- 
-
-Stopka faktury wedtug naszego projektu
-
-Ddatkowe informacje wedlug naszego projektu
-
- 
+Osoba upoważniona do odbioru
 
  
 
