@@ -1,16 +1,15 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Edytuj kontrahenta</title>
+  <title>Dodaj usługę</title>
 </head>
 <body>
   <main>
-<h2>Edytuj kontrahenta</h2>
+<h1>Dodaj usługę</h1>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  {{ form1.as_p }}
-  <button type="submit">Edytuj</button>
+  <button type="submit">Dodaj</button>
 </form>
   </main>
 </body>

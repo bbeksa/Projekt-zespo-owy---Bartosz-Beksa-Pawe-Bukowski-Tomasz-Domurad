@@ -1,0 +1,15 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lista produktów</title>
+</head>
+<h1>Produkty:</h1>
+    <ul>
+        {% for service in service_list %}
+            <li>{{ service.name }}</li>
+			<a href="/faktury/edytujprodukt/{{ service.id }}/"><button>Edytuj</button></a>
+			<a href="/faktury/usunprodukt/{{ service.id }}/"><button>Usuń</button></a>
+        {% endfor %}
+		<li><a href="/faktury/dodajusluge">Dodaj produkt</a></li>
+    </ul>
+</html>
