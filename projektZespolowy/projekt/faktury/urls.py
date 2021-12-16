@@ -21,7 +21,7 @@ urlpatterns = [
     path('edytujfakture/<int:invoice_id>/', views.Invoice_edit_form, name='edytujfakture'),
     path('usunprodukt/<int:service_id>/', views.Service_delete_form, name='usunprodukt'),
     path('edytujprodukt/<int:service_id>/', views.Service_edit_form, name='edytujprodukt'),
-    path('usunkontahenta/<int:personal_data_id>/', views.Data_delete_form, name='usunkontahenta'),
+    path('usunkontrahenta/<int:personal_data_id>/', views.Data_delete_form, name='usunkontahenta'),
     path('edytujkontrahenta/<int:personal_data_id>/', views.Data_edit_form, name='edytujkontrahenta'),
     path('dodajuslugedofaktury/<int:invoice_id>/', views.Service_Invoice_form, name='dodajuslugedofaktury'),
 ]

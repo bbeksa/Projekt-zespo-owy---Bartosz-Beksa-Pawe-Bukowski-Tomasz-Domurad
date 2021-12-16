@@ -138,7 +138,7 @@ def Data_delete_form(request, personal_data_id):
     if request.method == "POST":
         personal_data.delete()
         return redirect('faktury:lista')
-    return render(request, 'faktury/usunkontrahenta.html', {'personal_data': personal_data})
+    return render(request, 'faktury/ununkontrahenta.html', {'personal_data': personal_data})
 
 
 def Data_edit_form(request, personal_data_id):
