@@ -29,12 +29,11 @@ class AddressForm(forms.ModelForm):
 class Personal_DataForm(forms.ModelForm):
     class Meta:
         model = Personal_Data
-        fields = ('name', 'nip', 'address')
+        fields = ('name', 'nip')
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}),
-            'nip': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'NIP'}),
-            'address': forms.Select(attrs={'class': 'form-control'})
+            'nip': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'NIP'})
         }
 
 
