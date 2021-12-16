@@ -50,6 +50,7 @@ def City_form(request):
     form = CityForm(request.POST)
     if form.is_valid():
         form.save()
+        return redirect('faktury:lista')
     return render(request, 'faktury/dodajmiasto.html', {'form': form})
 
 
@@ -57,6 +58,7 @@ def Address_form(request):
     form = AddressForm(request.POST)
     if form.is_valid():
         form.save()
+        return redirect('faktury:lista')
     return render(request, 'faktury/dodajadres.html', {'form': form})
 
 
@@ -68,6 +70,7 @@ def Personal_Data_form(request):
         data = form.save(commit=False)
         data.address = address
         data.save()
+        return redirect('faktury:listakontrahentow')
     return render(request, 'faktury/dodajdane.html', {'form': form, 'form1': form1})
 
 
@@ -75,6 +78,7 @@ def Service_form(request):
     form = ServiceForm(request.POST)
     if form.is_valid():
         form.save()
+        return redirect('faktury:listaproduktow')
     return render(request, 'faktury/dodajusluge.html', {'form': form})
 
 
@@ -86,6 +90,7 @@ def Invoice_form(request):
         service = form1.save(commit=False)
         service.invoice = invoice
         service.save()
+        return redirect('faktury:lista')
     return render(request, 'faktury/dodajfakture.html', {'form': form, 'form1': form1})
 
 
@@ -96,6 +101,7 @@ def Service_Invoice_form(request, invoice_id):
         service = form.save(commit=False)
         service.invoice = invoice
         service.save()
+        return redirect('faktury:lista')
     return render(request, 'faktury/dodajuslugedofaktury.html', {'form': form})
 
 
@@ -137,8 +143,8 @@ def Data_delete_form(request, personal_data_id):
     personal_data = get_object_or_404(Personal_Data, pk=personal_data_id)
     if request.method == "POST":
         personal_data.delete()
-        return redirect('faktury:lista')
-    return render(request, 'faktury/usunkontrahenta.html', {'personal_data': personal_data})
+        return redirect('faktury:listakontrahentow')
+    return render(request, 'faktury/ununkontrahenta.html', {'personal_data': personal_data})
 
 
 def Data_edit_form(request, personal_data_id):

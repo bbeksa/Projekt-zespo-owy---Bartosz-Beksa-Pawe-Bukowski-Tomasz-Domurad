@@ -1,20 +1,27 @@
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Faktura</title>
-</head>
-<body>
-  <main>
-<h1>Fakturę</h1>
-	<ul>
-        <li>{{ invoice.number }}</li>	
-		<li>{{ invoice.date_of_issue }}</li>
-		<li>{{ invoice.date_of_delivery }}</li>
-		<li>{{ invoice.date_of_payment }}</li>
-		{% if invoice.image %}
-			<li><img src="http://127.0.0.1:8000/faktury{{ invoice.image.url }}" style="width: 100%; float: left; margin-right: 10px;" /></li>
-		{% endif %}
-    </ul>
-  </main>
-</body>
-</html>
+{% extends "faktury/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Invoice {{ invoice.number }}</h1>
+    <div class="container text-center">
+        <a class="btn btn-success btn-sm" href="/faktury/dodajuslugedofaktury/{{ invoice.id }}/">Add product</a>
+        <a class="btn btn-warning btn-sm" href="/faktury/edytujfakture/{{ invoice.id }}/">Edit</a>
+        <a class="btn btn-danger btn-sm" href="/faktury/usunfakture/{{ invoice.id }}/">Delete</a>
+    </div>
+    <div class="container mt-2">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Seller: {{ invoice.seller }} | {{ invoice.seller.address }}</li>
+            <li class="list-group-item">Buyer: {{ invoice.buyer }} | {{ invoice.buyer.address }}</li>
+            <li class="list-group-item">Date of issue: {{ invoice.date_of_issue }}</li>
+            <li class="list-group-item">Date of delivery: {{ invoice.date_of_delivery }}</li>
+            <li class="list-group-item">Date of payment: {{ invoice.date_of_payment }}</li>
+        </ul>
+    </div>
+    <div class="container text-center mt-3">
+        {% if invoice.image %}
+        <img src="http://127.0.0.1:8000/faktury{{ invoice.image.url }}" class="img-fluid" alt="Responsive image"/>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
+

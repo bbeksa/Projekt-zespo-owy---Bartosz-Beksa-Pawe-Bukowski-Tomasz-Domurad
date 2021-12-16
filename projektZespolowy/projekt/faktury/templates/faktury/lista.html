@@ -1,22 +1,37 @@
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Lista faktur</title>
-</head>
-<h1>Faktury:</h1>
-    <ul>
+{% extends "faktury/base.html" %}
+{% block content %}
+<div class="container mt-2">
+    <a class="btn btn-success btn-sm mx-1 my-2" href="/faktury/dodajfakture">Add invoice</a>
+    <a class="btn btn-success btn-sm mx-1 my-2" href="/faktury/dodajskan">Add invoice by document</a>
+    <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Number</th>
+            <th scope="col">Date of issue</th>
+            <th scope="col">Date of delivery</th>
+            <th scope="col">Date of payment</th>
+            <th scope="col">Seller</th>
+            <th scope="col">Buyer</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for invoice in invoice_list %}
-            <li><a href="/faktury/faktura/{{ invoice.id }}/">{{ invoice.number }}</a></li>
-			<a href="/faktury/dodajuslugedofaktury/{{ invoice.id }}/"><button>Dodaj towar</button></a>
-			<a href="/faktury/edytujfakture/{{ invoice.id }}/"><button>Edytuj</button></a>
-			<a href="/faktury/usunfakture/{{ invoice.id }}/"><button>Usuń</button></a>
+        <tr>
+            <th scope="row"><a href="/faktury/faktura/{{ invoice.id }}/">{{ invoice.number }}</a></th>
+            <td>{{ invoice.date_of_issue }}</td>
+            <td>{{ invoice.date_of_delivery }}</td>
+            <td>{{ invoice.date_of_payment }}</td>
+            <td>{{ invoice.seller.name }}</td>
+            <td>{{ invoice.buyer.name }}</td>
+            <td>
+                <a class="btn btn-success btn-sm" href="/faktury/dodajuslugedofaktury/{{ invoice.id }}/">Add product</a>
+                <a class="btn btn-warning btn-sm" href="/faktury/edytujfakture/{{ invoice.id }}/">Edit</a>
+                <a class="btn btn-danger btn-sm" href="/faktury/usunfakture/{{ invoice.id }}/">Delete</a>
+            </td>
+        </tr>
         {% endfor %}
-		<li><a href="/faktury/dodajfakture">Dodaj fakturę</a></li>
-		<li><a href="/faktury/dodajskan">Dodaj fakturę przesyłająć skan dokumentu</a></li>
-    </ul>
-<h2>Materiały do faktur:</h2>
-<ul>
-	<li><a href="/faktury/listakontrahentow">Lista kontrahentów</a></li>
-	<li><a href="/faktury/listaproduktow">Lista produktów</a></li>
-</ul>
-</html>
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

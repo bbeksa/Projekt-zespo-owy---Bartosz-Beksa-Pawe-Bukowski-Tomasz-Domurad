@@ -1,16 +1,10 @@
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Usuń kontrahenta</title>
-</head>
-<body>
-  <main>
-<h2>Usuń kontrahent</h2>
-<p>Czy na pewno chcesz usunąć kontrahent?</p>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Usuń</button>
-</form>
-  </main>
-</body>
-</html>
+{% extends "faktury/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <form method="post">
+        {% csrf_token %}
+        <h2>Are you sure you want to delete counterparty?</h2>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+{% endblock content %}

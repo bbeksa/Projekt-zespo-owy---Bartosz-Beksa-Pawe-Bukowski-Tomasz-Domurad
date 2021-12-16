@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    {% if title %}
+    <title>Invoice - {{ title }}</title>
+    {% else %}
+    <title>Invoice</title>
+    {% endif %}
+</head>
+<body class="bg-light">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse justify-content-center navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/faktury/lista">Invoices</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/faktury/listakontrahentow">Counterparties</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/faktury/listaproduktow">Products</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% block content %}{% endblock %}
+</body>
+</html>

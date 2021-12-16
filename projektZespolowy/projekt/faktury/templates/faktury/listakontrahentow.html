@@ -1,15 +1,29 @@
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Lista kontrahentów</title>
-</head>
-<h1>Kontrahenci:</h1>
-    <ul>
+{% extends "faktury/base.html" %}
+{% block content %}
+<div class="container mt-2">
+    <a class="btn btn-success btn-sm mx-1 my-2" href="/faktury/dodajdane">Add counterparty</a>
+    <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">NIP</th>
+            <th scope="col">Address</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for data in data_list %}
-            <li>{{ data.name }}</li>
-			<a href="/faktury/edytujkontrahenta/{{ data.id }}/"><button>Edytuj</button></a>
-			<a href="/faktury/usunkontrahenta/{{ data.id }}/"><button>Usuń</button></a>
+        <tr>
+            <th scope="row">{{ data.name }}</th>
+            <td>{{ data.nip }}</td>
+            <td>{{ data.address }}</td>
+            <td>
+                <a class="btn btn-warning btn-sm" href="/faktury/edytujkontrahenta/{{ data.id }}/">Edit</a>
+                <a class="btn btn-danger btn-sm" href="/faktury/usunkontrahenta/{{ data.id }}/">Delete</a>
+            </td>
+        </tr>
         {% endfor %}
-		<li><a href="/faktury/dodajdane">Dodaj kontrahenta</a></li>
-    </ul>
-</html>
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

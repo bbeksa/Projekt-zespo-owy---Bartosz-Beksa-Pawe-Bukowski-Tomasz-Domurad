@@ -1,15 +1,29 @@
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Lista produktów</title>
-</head>
-<h1>Produkty:</h1>
-    <ul>
+{% extends "faktury/base.html" %}
+{% block content %}
+<div class="container mt-2">
+    <a class="btn btn-success btn-sm mx-1 my-2" href="/faktury/dodajusluge">Add product</a>
+    <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Unit price</th>
+            <th scope="col">Tax rate</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for service in service_list %}
-            <li>{{ service.name }}</li>
-			<a href="/faktury/edytujprodukt/{{ service.id }}/"><button>Edytuj</button></a>
-			<a href="/faktury/usunprodukt/{{ service.id }}/"><button>Usuń</button></a>
+        <tr>
+            <th scope="row">{{ service.name }}</th>
+            <td>{{ service.unit_price }}</td>
+            <td>{{ service.tax_rate }}</td>
+            <td>
+                <a class="btn btn-warning btn-sm" href="/faktury/edytujprodukt/{{ service.id }}/">Edit</a>
+                <a class="btn btn-danger btn-sm" href="/faktury/usunprodukt/{{ service.id }}/">Delete</a>
+            </td>
+        </tr>
         {% endfor %}
-		<li><a href="/faktury/dodajusluge">Dodaj produkt</a></li>
-    </ul>
-</html>
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

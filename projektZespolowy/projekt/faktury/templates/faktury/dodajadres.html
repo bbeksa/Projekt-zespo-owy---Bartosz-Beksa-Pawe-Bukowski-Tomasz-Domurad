@@ -1,17 +1,35 @@
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Dodaj adres</title>
-</head>
-<body>
-  <main>
-<h1>Dodaj adres</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Dodaj</button>
-</form>
-<p><a href="/faktury/dodajmiasto">Dodaj miasto</a></p>
-  </main>
-</body>
-</html>
+{% extends "faktury/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label for="inputStreetname" class="col-sm-2 col-form-label">Address</label>
+            <div class="col-sm-10 col-md-6">
+                {{ form.streetname }}
+            </div>
+            <div class="col-sm-10 col-md-2">
+                {{ form.building_number }}
+            </div>
+            <div class="col-sm-10 col-md-2">
+                {{ form.apartment_number }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputCity" class="col-sm-2 col-form-label">City</label>
+            <div class="col-sm-10 col-md-8">
+                {{ form.city }}
+            </div>
+            <div class="col-sm-10 col-md-2">
+                <a class="btn btn-success btn-sm mx-1 my-2" href="/faktury/dodajmiasto">Add city</a>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Add address</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}
