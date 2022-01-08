@@ -35,14 +35,16 @@ def traders_list(request):
     }
     return HttpResponse(template.render(context, request))
 
-
 def Invoice_display(request, invoice_id):
+    if request.method == 'POST':
+        generateInvoice(invoice_id)
+        return redirect('faktury:lista')
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     template = loader.get_template('faktury/faktura.html')
     context = {
         'invoice': invoice,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'faktury/faktura.html', {'invoice': invoice})
 
 
 
