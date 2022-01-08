@@ -5,6 +5,7 @@ from django.template import loader
 from .forms import *
 import datetime
 from .dataFromText1 import DatafromTextW1
+from .generatePDF import generateInvoice
 
 from .models import *
 
