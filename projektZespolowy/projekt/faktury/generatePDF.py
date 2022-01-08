@@ -1,11 +1,11 @@
 from fpdf import FPDF
-from django.shortcuts import get_object_or_404
-from models import Invoice, Service_Invoice, Service
 from num2words import num2words
 
+from django.shortcuts import get_object_or_404
+from .models import *
 
 def create_table(table_data, title='', data_size=10, title_size=12, align_data='L', align_header='L', cell_width='even',
-                 x_start='x_default', emphasize_data=None, emphasize_style=None, emphasize_color=(0, 0, 0)):
+                 x_start='x_default', emphasize_data=None, emphasize_style=None, emphasize_color=(0, 0, 0), pdf=None):
     if emphasize_data is None:
         emphasize_data = []
     default_style = pdf.font_style
@@ -151,6 +151,8 @@ def generateInvoice(invoice_id):
         ["Lp.", "Nazwa towaru / usługi", "Ilość", "Cena netto", "VAT", "Wartość netto", "Wartość VAT", "Wartość brutto"]
     ]
     summary = [["Razem", "X", " ", " ", " "]]
+    for _ in range(3):
+        summary.append(['' for x in range(5)])
 
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     service_list = Service_Invoice.objects.filter(invoice_id=invoice_id)
@@ -169,34 +171,36 @@ def generateInvoice(invoice_id):
     sum_brutto_5 = 0
 
     for service in service_list:
-        product = Service.objects.filter(pk=service.service)
+        product = Service.objects.filter(pk=service.service.id)
         ilosc = service.quantity
-        summary.append([])
         x += 1
-        data.append((str(x)+".", str(product.name), str(ilosc), str(product.unit_price), str(product.tax_rate * 100)+"%", str(product.unit_price*ilosc), str(product.unit_price*ilosc*product.tax_rate), str(product.unit_price*ilosc+product.unit_price*ilosc*product.tax_rate)))
-        sum_netto += product.unit_price*ilosc
-        if product.tax_rate == 0.23:
-            sum_netto_23 += product.unit_price*ilosc
-        if product.tax_rate == 0.8:
-            sum_netto_8 += product.unit_price*ilosc
-        if product.tax_rate == 0.5:
-            sum_netto_5 += product.unit_price*ilosc
+        data.append((str(x) + ".", product[0].name, str(ilosc), str(product[0].unit_price),
+                     str(product[0].tax_rate * 100) + "%", str(product[0].unit_price * ilosc),
+                     str(round(product[0].unit_price * ilosc * product[0].tax_rate, 2)),
+                     str(round(product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate, 2))))
+        sum_netto += product[0].unit_price * ilosc
+        if product[0].tax_rate == 0.23:
+            sum_netto_23 += product[0].unit_price * ilosc
+        if product[0].tax_rate == 0.8:
+            sum_netto_8 += product[0].unit_price * ilosc
+        if product[0].tax_rate == 0.5:
+            sum_netto_5 += product[0].unit_price * ilosc
 
-        sum_vat += product.unit_price*ilosc*product.tax_rate
-        if product.tax_rate == 0.23:
-            sum_vat_23 += product.unit_price*ilosc*product.tax_rate
-        if product.tax_rate == 0.8:
-            sum_vat_8 += product.unit_price*ilosc*product.tax_rate
-        if product.tax_rate == 0.5:
-            sum_vat_5 += product.unit_price*ilosc*product.tax_rate
+        sum_vat += product[0].unit_price * ilosc * product[0].tax_rate
+        if product[0].tax_rate == 0.23:
+            sum_vat_23 += product.unit_price * ilosc * product[0].tax_rate
+        if product[0].tax_rate == 0.8:
+            sum_vat_8 += product[0].unit_price * ilosc * product[0].tax_rate
+        if product[0].tax_rate == 0.5:
+            sum_vat_5 += product[0].unit_price * ilosc * product[0].tax_rate
 
-        sum_brutto += product.unit_price*ilosc+product.unit_price*ilosc*product.tax_rate
-        if product.tax_rate == 0.23:
-            sum_brutto_23 += product.unit_price*ilosc+product.unit_price*ilosc*product.tax_rate
-        if product.tax_rate == 0.8:
-            sum_brutto_8 += product.unit_price*ilosc+product.unit_price*ilosc*product.tax_rate
-        if product.tax_rate == 0.5:
-            sum_brutto_5 += product.unit_price*ilosc+product.unit_price*ilosc*product.tax_rate
+        sum_brutto += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
+        if product[0].tax_rate == 0.23:
+            sum_brutto_23 += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
+        if product[0].tax_rate == 0.8:
+            sum_brutto_8 += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
+        if product[0].tax_rate == 0.5:
+            sum_brutto_5 += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
 
     summary[0][0] = "Razem"
     summary[0][1] = "X"
@@ -207,24 +211,24 @@ def generateInvoice(invoice_id):
     summary[3][0] = " "
     summary[3][1] = "5%"
 
-    summary[0][2] = str(sum_netto)
-    summary[1][2] = str(sum_netto_23)
-    summary[2][2] = str(sum_netto_8)
-    summary[3][2] = str(sum_netto_5)
-    summary[0][3] = str(sum_vat)
-    summary[1][3] = str(sum_vat_23)
-    summary[2][3] = str(sum_vat_8)
-    summary[3][3] = str(sum_vat_5)
-    summary[0][3] = str(sum_brutto)
-    summary[1][3] = str(sum_brutto_23)
-    summary[2][3] = str(sum_brutto_8)
-    summary[3][3] = str(sum_brutto_5)
+    summary[0][2] = str(round(sum_netto, 2))
+    summary[1][2] = str(round(sum_netto_23, 2))
+    summary[2][2] = str(round(sum_netto_8, 2))
+    summary[3][2] = str(round(sum_netto_5, 2))
+    summary[0][3] = str(round(sum_vat, 2))
+    summary[1][3] = str(round(sum_vat_23, 2))
+    summary[2][3] = str(round(sum_vat_8, 2))
+    summary[3][3] = str(round(sum_vat_5, 2))
+    summary[0][3] = str(round(sum_brutto, 2))
+    summary[1][3] = str(round(sum_brutto_23, 2))
+    summary[2][3] = str(round(sum_brutto_8, 2))
+    summary[3][3] = str(round(sum_brutto_5, 2))
 
     pdf = FPDF()
     pdf.add_page()
     pdf.set_xy(0, 0)
 
-    pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
+    pdf.add_font('DejaVu', '', 'faktury\DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('DejaVu', '', 18)
 
     pdf.cell(60)
@@ -242,50 +246,56 @@ def generateInvoice(invoice_id):
     pdf.cell(2, 2, " ", 0, 2, 'L')
 
     pdf.set_font('DejaVu', '', 16)
+
     pdf.cell(100, 6, 'Sprzedawca', 'B', 0, 'L')
     pdf.cell(30, 6, 'Nabywca', 'B', 1, 'L')
     pdf.cell(20, 2, " ", 0, 0, 'L')
     pdf.cell(2, 2, " ", 0, 2, 'L')
+
     pdf.set_font('DejaVu', '', 12)
     pdf.cell(100, 6, str(invoice.seller.name), 0, 0, 'L')
     pdf.cell(20, 6, str(invoice.buyer.name), 0, 1, 'L')
     pdf.cell(20, 2, " ", 0, 0, 'L')
     pdf.cell(2, 2, " ", 0, 2, 'L')
+
     if invoice.seller.address.apartment_number is not None:
-        pdf.cell(100, 6, str(invoice.seller.address.streetname + " " + invoice.seller.address.building_number + "/" + invoice.seller.address.apartment_number), 0, 0, 'L')
+        pdf.cell(100, 6, str(
+            str(invoice.seller.address.streetname) + " " + str(invoice.seller.address.building_number) + "/" + str(invoice.seller.address.apartment_number)),0, 0, 'L')
     else:
-        pdf.cell(100, 6, str(invoice.seller.address.streetname + " " + invoice.seller.address.building_number), 0, 0, 'L')
+        pdf.cell(100, 6, str(invoice.seller.address.streetname + " " + invoice.seller.address.building_number), 0, 0,'L')
     if invoice.buyer.address.apartment_number is not None:
-        pdf.cell(20, 6, str(invoice.buyer.address.streetname + " " + invoice.buyer.address.building_number + "/" + invoice.buyer.address.apartment_number), 0, 0, 'L')
+        pdf.cell(20, 6, str(invoice.buyer.address.streetname) + " " + str(invoice.buyer.address.building_number) + "/" + str(invoice.buyer.address.apartment_number),0, 1, 'L')
     else:
-        pdf.cell(20, 6, str(invoice.buyer.address.streetname + " " + invoice.buyer.address.building_number), 0, 0, 'L')
+        pdf.cell(20, 6, str(invoice.buyer.address.streetname) + " " + str(invoice.buyer.address.building_number), 0, 1, 'L')
     pdf.cell(20, 2, " ", 0, 0, 'L')
     pdf.cell(2, 2, " ", 0, 2, 'L')
+
     pdf.cell(100, 6, str(invoice.seller.address.city.postcode + " " + invoice.seller.address.city.name), 0, 0, 'L')
     pdf.cell(20, 6, str(invoice.buyer.address.city.postcode + " " + invoice.buyer.address.city.name), 0, 1, 'L')
     pdf.cell(20, 2, " ", 0, 0, 'L')
     pdf.cell(2, 2, " ", 0, 2, 'L')
+
     pdf.cell(20, 6, "NIP: " + str(invoice.seller.nip), 0, 2, 'L')
     pdf.cell(10, 6, " ", 0, 2, 'L')
 
     pdf.ln(0.5)
     pdf.set_font('DejaVu', '', 11)
 
-    create_table(table_data=data, title='', cell_width='uneven')
+    create_table(table_data=data, title='', cell_width='uneven', pdf=pdf)
     pdf.ln()
 
-    create_table(table_data=summary, title='', cell_width='even', x_start=80)
+    create_table(table_data=summary, title='', cell_width='even', x_start=80, pdf=pdf)
     pdf.ln()
 
     pdf.set_font('DejaVu', '', 11)
 
     pdf.cell(35, 6, 'Razem:', 0, 0, 'L')
-    pdf.cell(50, 6, sum_brutto + " PLN", 0, 0, 'L')
-    pdf.cell(20, 6, num2words(sum_brutto, lang='pl') + " PLN", 0, 1, 'L')
+    pdf.cell(50, 6, str(round(sum_brutto, 2)) + " PLN", 0, 0, 'L')
+    pdf.cell(20, 6, num2words(round(sum_brutto, 2), lang='pl') + " PLN", 0, 1, 'L')
     pdf.cell(20, 2, " ", 0, 0, 'L')
     pdf.cell(2, 2, " ", 0, 1, 'L')
     pdf.cell(35, 6, 'Do zapłaty:', 0, 0, 'L')
-    pdf.cell(20, 6, sum_brutto + " PLN", 0, 1, 'L')
+    pdf.cell(20, 6, str(round(sum_brutto, 2)) + " PLN", 0, 1, 'L')
     pdf.cell(20, 2, " ", 0, 0, 'L')
     pdf.cell(2, 2, " ", 0, 1, 'L')
     pdf.cell(35, 6, 'Termin zapłaty:', 0, 0, 'L')
@@ -307,5 +317,3 @@ def generateInvoice(invoice_id):
 
     pdf.output('InvoicePDF.pdf')
 
-pdf = FPDF()
-generateInvoice(1)
