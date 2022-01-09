@@ -18,5 +18,3 @@ def textRecognition(nazwa):
     with open('text_result2.txt', mode='a') as file:
         file.write(result)
 
-
-textRecognition('img/wzorfaktury4v2.png')
