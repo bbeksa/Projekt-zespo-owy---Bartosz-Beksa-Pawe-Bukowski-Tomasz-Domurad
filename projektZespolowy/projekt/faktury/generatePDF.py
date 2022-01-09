@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from fpdf import FPDF
 from num2words import num2words
 
@@ -179,27 +181,27 @@ def generateInvoice(invoice_id):
                      str(round(product[0].unit_price * ilosc * product[0].tax_rate, 2)),
                      str(round(product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate, 2))))
         sum_netto += product[0].unit_price * ilosc
-        if product[0].tax_rate == 0.23:
+        if float(product[0].tax_rate) == 0.23:
             sum_netto_23 += product[0].unit_price * ilosc
-        if product[0].tax_rate == 0.8:
+        if float(product[0].tax_rate) == 0.8:
             sum_netto_8 += product[0].unit_price * ilosc
-        if product[0].tax_rate == 0.5:
+        if float(product[0].tax_rate) == 0.5:
             sum_netto_5 += product[0].unit_price * ilosc
 
         sum_vat += product[0].unit_price * ilosc * product[0].tax_rate
-        if product[0].tax_rate == 0.23:
-            sum_vat_23 += product.unit_price * ilosc * product[0].tax_rate
-        if product[0].tax_rate == 0.8:
+        if float(product[0].tax_rate) == 0.23:
+            sum_vat_23 += product[0].unit_price * ilosc * product[0].tax_rate
+        if float(product[0].tax_rate) == 0.8:
             sum_vat_8 += product[0].unit_price * ilosc * product[0].tax_rate
-        if product[0].tax_rate == 0.5:
+        if float(product[0].tax_rate) == 0.5:
             sum_vat_5 += product[0].unit_price * ilosc * product[0].tax_rate
 
         sum_brutto += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
-        if product[0].tax_rate == 0.23:
+        if float(product[0].tax_rate) == 0.23:
             sum_brutto_23 += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
-        if product[0].tax_rate == 0.8:
+        if float(product[0].tax_rate) == 0.8:
             sum_brutto_8 += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
-        if product[0].tax_rate == 0.5:
+        if float(product[0].tax_rate) == 0.5:
             sum_brutto_5 += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
 
     summary[0][0] = "Razem"
@@ -219,10 +221,10 @@ def generateInvoice(invoice_id):
     summary[1][3] = str(round(sum_vat_23, 2))
     summary[2][3] = str(round(sum_vat_8, 2))
     summary[3][3] = str(round(sum_vat_5, 2))
-    summary[0][3] = str(round(sum_brutto, 2))
-    summary[1][3] = str(round(sum_brutto_23, 2))
-    summary[2][3] = str(round(sum_brutto_8, 2))
-    summary[3][3] = str(round(sum_brutto_5, 2))
+    summary[0][4] = str(round(sum_brutto, 2))
+    summary[1][4] = str(round(sum_brutto_23, 2))
+    summary[2][4] = str(round(sum_brutto_8, 2))
+    summary[3][4] = str(round(sum_brutto_5, 2))
 
     pdf = FPDF()
     pdf.add_page()
@@ -284,7 +286,7 @@ def generateInvoice(invoice_id):
     create_table(table_data=data, title='', cell_width='uneven', pdf=pdf)
     pdf.ln()
 
-    create_table(table_data=summary, title='', cell_width='even', x_start=80, pdf=pdf)
+    create_table(table_data=summary, title='', cell_width=25, x_start=70, pdf=pdf)
     pdf.ln()
 
     pdf.set_font('DejaVu', '', 11)
