@@ -234,7 +234,7 @@ def generateInvoice(invoice_id):
     pdf.set_font('DejaVu', '', 18)
 
     pdf.cell(60)
-    pdf.cell(90, 20, "Faktura nr:" + str(invoice.number), 0, 2, align='C')
+    pdf.cell(90, 20, "Faktura nr:  " + str(invoice.number), 0, 2, align='C')
     pdf.cell(10, 5, " ", 0, 2, 'C')
     pdf.cell(75, 2, " ", 0, 0, 'L')
 
