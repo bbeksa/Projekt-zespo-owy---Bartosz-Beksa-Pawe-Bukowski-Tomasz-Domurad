@@ -15,6 +15,6 @@ def textRecognition(nazwa):
     img_edit.save("edited_image.png")
 
     result = pytesseract.image_to_string(img_edit, lang="pol")
-    with open('text_result2.txt', mode='a') as file:
+    with open('text_result2.txt', mode='w') as file:
         file.write(result)
 
