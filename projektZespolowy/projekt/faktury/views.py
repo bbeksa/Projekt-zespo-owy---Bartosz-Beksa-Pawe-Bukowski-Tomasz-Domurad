@@ -9,8 +9,56 @@ from .dataFromText1 import DatafromTextW1
 from .models import *
 
 
-def list(request):
+def list0(request):
     invoice_list = Invoice.objects.all()
+    template = loader.get_template('faktury/lista.html')
+    context = {
+        'invoice_list': invoice_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+def list1(request):
+    invoice_list = Invoice.objects.order_by('number')
+    template = loader.get_template('faktury/lista.html')
+    context = {
+        'invoice_list': invoice_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+def list2(request):
+    invoice_list = Invoice.objects.order_by('date_of_issue')
+    template = loader.get_template('faktury/lista.html')
+    context = {
+        'invoice_list': invoice_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+def list3(request):
+    invoice_list = Invoice.objects.order_by('date_of_delivery')
+    template = loader.get_template('faktury/lista.html')
+    context = {
+        'invoice_list': invoice_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+def list4(request):
+    invoice_list = Invoice.objects.order_by('date_of_payment')
+    template = loader.get_template('faktury/lista.html')
+    context = {
+        'invoice_list': invoice_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+def list5(request):
+    invoice_list = Invoice.objects.order_by('seller')
+    template = loader.get_template('faktury/lista.html')
+    context = {
+        'invoice_list': invoice_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+def list6(request):
+    invoice_list = Invoice.objects.order_by('buyer')
     template = loader.get_template('faktury/lista.html')
     context = {
         'invoice_list': invoice_list,
@@ -38,11 +86,16 @@ def traders_list(request):
 
 def Invoice_display(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
-    template = loader.get_template('faktury/faktura.html')
-    context = {
-        'invoice': invoice,
-    }
-    return HttpResponse(template.render(context, request))
+    service_invoice_list = Service_Invoice.objects.filter(invoice_id=invoice_id)
+    totaltaxed = 0
+    totaluntaxed = 0
+    for service in service_invoice_list:
+        service.untaxed = service.service.unit_price * service.quantity
+        service.taxed = "{:.2f}".format(float(service.untaxed * (1+service.service.tax_rate)))
+        totaluntaxed += service.untaxed
+        totaltaxed += float(service.taxed)
+    return render(request, 'faktury/faktura.html', {'invoice': invoice, 'service_invoice_list': service_invoice_list,
+                                                    'totaltaxed': totaltaxed, 'totaluntaxed': totaluntaxed})
 
 
 
@@ -63,15 +116,29 @@ def Address_form(request):
 
 
 def Personal_Data_form(request):
-    form = Personal_DataForm(request.POST)
+    form = Personal_DataForm(request.POST, prefix='name')
     form1 = AddressForm(request.POST)
-    if form.is_valid() and form1.is_valid():
-        address = form1.save()
+    form2 = CityForm(request.POST, prefix='city')
+    if form.is_valid() and form1.is_valid() and form2.is_valid():
+        address = form1.save(commit=False)
+        city = form2.save(commit=False)
+        city_list = City.objects.all()
+        codes = list()
+        for c in city_list:
+            codes.append(c.postcode)
+        if city.postcode in codes:
+            for c in city_list:
+                if city.postcode == c.postcode:
+                    address.city = c
+        else:
+            city.save()
+            address.city = city
+        address.save()
         data = form.save(commit=False)
         data.address = address
         data.save()
         return redirect('faktury:listakontrahentow')
-    return render(request, 'faktury/dodajdane.html', {'form': form, 'form1': form1})
+    return render(request, 'faktury/dodajdane.html', {'form': form, 'form1': form1, 'form2': form2})
 
 
 def Service_form(request):
@@ -115,11 +182,17 @@ def Invoice_delete_form(request, invoice_id):
 
 def Invoice_edit_form(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
-    form = InvoiceForm(request.POST, instance=invoice)
-    if form.is_valid():
-        form.save()
-        return redirect('faktury:lista')
-    return render(request, 'faktury/edytujfakture.html', {'form': form})
+    service_invoice_list = Service_Invoice.objects.filter(invoice_id=invoice_id)
+    data = {'number': invoice.number, 'date_of_issue': invoice.date_of_issue,
+            'date_of_delivery': invoice.date_of_delivery, 'date_of_payment': invoice.date_of_payment,
+            'seller': invoice.seller, 'buyer': invoice.buyer}
+    form = InvoiceForm(initial=data)
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST, initial=data, instance=invoice)
+        if form.is_valid():
+            form.save()
+            return redirect('faktury:lista')
+    return render(request, 'faktury/edytujfakture.html', {'form': form, 'service_invoice_list': service_invoice_list})
 
 
 def Service_delete_form(request, service_id):
@@ -132,11 +205,34 @@ def Service_delete_form(request, service_id):
 
 def Service_edit_form(request, service_id):
     service = get_object_or_404(Service, pk=service_id)
-    form = ServiceForm(request.POST, instance=service)
-    if form.is_valid():
-        form.save()
-        return redirect('faktury:listaproduktow')
+    data = {'name':service.name, 'unit_price':service.unit_price, 'tax_rate':service.tax_rate}
+    form = ServiceForm(initial=data)
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, instance=service)
+        if form.is_valid():
+            form.save()
+            return redirect('faktury:listaproduktow')
     return render(request, 'faktury/edytujprodukt.html', {'form': form})
+
+
+def Service_Invoice_delete_form(request, service_invoice_id):
+    service_invoice = get_object_or_404(Service_Invoice, pk=service_invoice_id)
+    if request.method == "POST":
+        service_invoice.delete()
+        return redirect('/faktury/edytujfakture/' + str(service_invoice.invoice.id))
+    return render(request, 'faktury/usunproduktzfaktury.html', {'service_invoice': service_invoice})
+
+
+def Service_Invoice_edit_form(request, service_invoice_id):
+    service_invoice = get_object_or_404(Service_Invoice, pk=service_invoice_id)
+    data = {'service': service_invoice.service, 'quantity': service_invoice.quantity, 'invoice': service_invoice.invoice}
+    form = Service_InvoiceForm(initial=data)
+    if request.method == "POST":
+        form = Service_InvoiceForm(request.POST, instance=service_invoice)
+        if form.is_valid():
+            form.save()
+            return redirect('/faktury/edytujfakture/' + str(service_invoice.invoice.id))
+    return render(request, 'faktury/edytujproduktzfaktury.html', {'form': form})
 
 
 def Data_delete_form(request, personal_data_id):
@@ -150,15 +246,35 @@ def Data_delete_form(request, personal_data_id):
 def Data_edit_form(request, personal_data_id):
     personal_data = get_object_or_404(Personal_Data, pk=personal_data_id)
     data_address = get_object_or_404(Address, pk=personal_data.address.id)
-    form = Personal_DataForm(request.POST, instance=personal_data)
-    form1 = AddressForm(request.POST, instance=data_address)
-    if form.is_valid() and form1.is_valid():
-        address = form1.save()
-        data = form.save(commit=False)
-        data.address = address
-        data.save()
-        return redirect('faktury:listakontrahentow')
-    return render(request, 'faktury/edytujkontrahenta.html', {'form': form, 'form1': form1})
+    data_city = get_object_or_404(City, pk=data_address.city.id)
+    data = {'name': personal_data.name, 'nip': personal_data.nip, 'address': personal_data.address}
+    data1 = {'streetname': data_address.streetname, 'apartment_number': data_address.apartment_number,
+             'building_number': data_address.building_number, 'city': data_address.city}
+    data2 = {'name': data_city.name, 'postcode': data_city.postcode}
+    form = Personal_DataForm(initial=data, prefix='name')
+    form1 = AddressForm(initial=data1)
+    form2 = CityForm(initial=data2, prefix='city')
+    if request.method == "POST":
+        form = Personal_DataForm(request.POST, instance=personal_data, prefix='name')
+        form1 = AddressForm(request.POST, instance=data_address)
+        form2 = CityForm(request.POST, instance=data_city, prefix='city')
+        if form.is_valid() and form1.is_valid() and form2.is_valid():
+            address = form1.save(commit=False)
+            city = form2.save(commit=False)
+            city_list = City.objects.all()
+            if city in city_list:
+                for c in city_list:
+                    if city.postcode == c.postcode:
+                        address.city = c
+            else:
+                city.save()
+                address.city = city
+            address.save()
+            data = form.save(commit=False)
+            data.address = address
+            data.save()
+            return redirect('faktury:listakontrahentow')
+    return render(request, 'faktury/edytujkontrahenta.html', {'form': form, 'form1': form1, 'form2': form2})
 
 
 def upload_with_image(request):

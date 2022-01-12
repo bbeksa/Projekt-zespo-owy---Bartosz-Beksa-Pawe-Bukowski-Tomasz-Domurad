@@ -22,7 +22,7 @@ class Address(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city')
 
     def __str__(self):
-        return str(self.city.name) + " " + str(self.apartment_number) + "/" + str(self.building_number)
+        return str(self.city.name) + " " + str(self.streetname) + " " + str(self.apartment_number) + "/" + str(self.building_number)
 
     @classmethod
     def create(cls, apartment_number, building_number, streetname, city):
@@ -92,9 +92,9 @@ class Invoice(models.Model):
 
 
 class Service_Invoice(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='friendlistOwner')
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='service')
     quantity = models.IntegerField(default=0)
-    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, related_name='friend')
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, related_name='invoice')
 
     def __str__(self):
         return self.service.name + " times " + str(self.quantity) + " for " + self.invoice.number

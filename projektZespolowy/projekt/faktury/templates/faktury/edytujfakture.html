@@ -1,7 +1,6 @@
 {% extends "faktury/base.html" %}
 {% block content %}
 <div class="container mt-5">
-    <h1>The same as create invoice.</h1>
     <form method="post">
         {% csrf_token %}
         <div class="form-group row">
@@ -51,6 +50,15 @@
                 <button type="submit" class="btn btn-primary">Edit invoice</button>
             </div>
         </div>
+		<div class="container mt-2">
+        <ul class="list-group list-group-flush">
+			{% for service in service_invoice_list %}
+				<li class="list-group-item">Product: {{ service.service.name }} | {{ service.quantity }}		
+				<a class="btn btn-warning btn-sm" href="/faktury/edytujproduktzfaktury/{{ service.id }}/">Edit</a>
+				<a class="btn btn-danger btn-sm" href="/faktury/usunproduktzfaktury/{{ service.id }}/">Delete</a></li>
+			{% endfor %}
+        </ul>
+    </div>
     </form>
 </div>
 {% endblock content %}
