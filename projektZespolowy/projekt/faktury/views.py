@@ -5,6 +5,7 @@ from django.template import loader
 from .forms import *
 import datetime
 from .dataFromText1 import DatafromTextW1
+from .generatePDF import generateInvoice
 
 from .models import *
 
@@ -83,8 +84,10 @@ def traders_list(request):
     }
     return HttpResponse(template.render(context, request))
 
-
 def Invoice_display(request, invoice_id):
+    if request.method == 'POST':
+        generateInvoice(invoice_id)
+        return redirect('faktury:lista')
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     service_invoice_list = Service_Invoice.objects.filter(invoice_id=invoice_id)
     totaltaxed = 0
@@ -96,7 +99,6 @@ def Invoice_display(request, invoice_id):
         totaltaxed += float(service.taxed)
     return render(request, 'faktury/faktura.html', {'invoice': invoice, 'service_invoice_list': service_invoice_list,
                                                     'totaltaxed': totaltaxed, 'totaluntaxed': totaluntaxed})
-
 
 
 def City_form(request):
@@ -298,18 +300,20 @@ def upload_with_image(request):
             buyer.save()
             invoice = Invoice.create(data[0], '2021-12-12', '2021-12-12', '2021-12-12', seller, buyer)
             invoice.save()
-            service1 = Service.create(data[17], 10.00, 0.32)
+            service1 = Service.create(data[17], data[19], data[20])
             service1.save()
             addservice1 = Service_Invoice.create(service1, data[18], invoice)
             addservice1.save()
-            service2 = Service.create(data[21], 10.00, 0.23)
-            service2.save()
-            addservice2 = Service_Invoice.create(service2, data[22], invoice)
-            addservice2.save()
-            service3 = Service.create(data[25], 10.00, 0.23)
-            service3.save()
-            addservice3 = Service_Invoice.create(service3, data[26], invoice)
-            addservice3.save()
+            if data[21] != " ":
+                service2 = Service.create(data[21], data[23], data[24])
+                service2.save()
+                addservice2 = Service_Invoice.create(service2, data[22], invoice)
+                addservice2.save()
+            if data[25] != " ":
+                service3 = Service.create(data[25], data[27], data[28])
+                service3.save()
+                addservice3 = Service_Invoice.create(service3, data[26], invoice)
+                addservice3.save()
             return redirect('faktury:lista')
     else:
         form = UploadFileForm(request.POST, request.FILES)
