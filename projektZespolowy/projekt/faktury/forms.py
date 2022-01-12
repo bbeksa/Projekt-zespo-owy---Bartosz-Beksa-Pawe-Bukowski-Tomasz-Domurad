@@ -8,7 +8,7 @@ class CityForm(forms.ModelForm):
         fields = ('name', 'postcode')
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cityname'}),
             'postcode': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Postcode'})
         }
 
@@ -16,13 +16,13 @@ class CityForm(forms.ModelForm):
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
-        fields = ('apartment_number', 'building_number', 'streetname', 'city')
+        fields = ('apartment_number', 'building_number', 'streetname')
 
         widgets = {
             'apartment_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Apartment number'}),
             'building_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Building number'}),
             'streetname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Streetname'}),
-            'city': forms.Select(attrs={'class': 'form-control'})
+            #'city': forms.Select(attrs={'class': 'form-control'})
         }
 
 
