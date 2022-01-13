@@ -5,7 +5,30 @@ Aplikacja do zarządzania fakturami
 
 <br />
 
-Potencjalnymi użytkownikami są posiadacze jednosobowych działalności gospodarczych lub małych firm którzy przez brak czasu lub umiejętności zlecają prowadenie dokumentacji biurom rachunkowym.
+Instalacja:
+
+Na komputerze należy zainstalować do Pythona następujące biblioteki: Pillow, Django, fpdf, num2words
+
+pytesseract: https://github.com/UB-Mannheim/tesseract/wiki <br />
+W pliku textRecognition.py należy podać ścieżkę do miejsca instalacji <br />
+
+Polski pakiet językowy dla pytesseract: https://github.com/tesseract-ocr/tessdata <br />
+Plik "pol" wrzucić do miejsca instalacji pytesseract
+
+<br />
+
+Uruchomienie:
+
+Uruchomić konsole w katalogu projekt i wpisać komendę
+```
+python manage.py runserver
+```
+
+# 
+
+<br />
+
+Potencjalnymi użytkownikami są małe firmy lub posiadacze jednosobowych działalności gospodarczych lub małych firm którzy przez brak czasu lub umiejętności zlecają prowadenie dokumentacji biurom rachunkowym.
 
 <br />
 
@@ -19,13 +42,11 @@ Funkcjonalności:
 
 -uzupełnianie i modyfikowanie już istniejących faktur 
 
--wyszukiwanie faktur po datach lub nazwach firm
-
 <br />
 
 Technologie:
 
--Python z użyciem biblotek Pillow i pytesseract
+-Python z użyciem biblotek Pillow, pytesseract, fpdf2
 
 -framework Django 
 
