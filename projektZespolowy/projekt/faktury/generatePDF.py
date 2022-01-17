@@ -230,7 +230,7 @@ def generateInvoice(invoice_id):
     pdf.add_page()
     pdf.set_xy(0, 0)
 
-    pdf.add_font('DejaVu', '', 'faktury\DejaVuSansCondensed.ttf', uni=True)
+    pdf.add_font('DejaVu', '', 'projektZespolowy/projekt/faktury/DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('DejaVu', '', 18)
 
     pdf.cell(60)
