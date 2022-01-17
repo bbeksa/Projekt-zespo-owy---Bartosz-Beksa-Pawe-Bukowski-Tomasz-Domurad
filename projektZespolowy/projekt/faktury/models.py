@@ -1,5 +1,5 @@
 from django.db import models
-#from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 
 class City(models.Model):
@@ -22,11 +22,13 @@ class Address(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city')
 
     def __str__(self):
-        return str(self.city.name) + " " + str(self.streetname) + " " + str(self.apartment_number) + "/" + str(self.building_number)
+        return str(self.city.name) + " " + str(self.streetname) + " " + str(self.apartment_number) + "/" + str(
+            self.building_number)
 
     @classmethod
     def create(cls, apartment_number, building_number, streetname, city):
-        address = cls(apartment_number=apartment_number, building_number=building_number, streetname=streetname, city=city)
+        address = cls(apartment_number=apartment_number, building_number=building_number, streetname=streetname,
+                      city=city)
         return address
 
     @classmethod
@@ -82,12 +84,14 @@ class Invoice(models.Model):
 
     @classmethod
     def create(cls, number, date_of_issue, date_of_delivery, date_of_payment, seller, buyer):
-        invoice = cls(number=number, date_of_issue=date_of_issue, date_of_delivery=date_of_delivery, date_of_payment=date_of_payment, seller=seller, buyer=buyer)
+        invoice = cls(number=number, date_of_issue=date_of_issue, date_of_delivery=date_of_delivery,
+                      date_of_payment=date_of_payment, seller=seller, buyer=buyer)
         return invoice
 
     @classmethod
     def create_with_image(cls, number, date_of_issue, date_of_delivery, date_of_payment, seller, buyer, image):
-        invoice = cls(number=number, date_of_issue=date_of_issue, date_of_delivery=date_of_delivery, date_of_payment=date_of_payment, seller=seller, buyer=buyer, image=image)
+        invoice = cls(number=number, date_of_issue=date_of_issue, date_of_delivery=date_of_delivery,
+                      date_of_payment=date_of_payment, seller=seller, buyer=buyer, image=image)
         return invoice
 
 
@@ -103,5 +107,3 @@ class Service_Invoice(models.Model):
     def create(cls, service, quantity, invoice):
         service_invoice = cls(service=service, quantity=quantity, invoice=invoice)
         return service_invoice
-
-
