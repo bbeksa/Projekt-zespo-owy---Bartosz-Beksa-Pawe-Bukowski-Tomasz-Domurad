@@ -132,7 +132,9 @@ def City_form(request):
 def Address_form(request):
     form = AddressForm(request.POST)
     if form.is_valid():
-        form.save()
+        address = form.save(commit=False)
+        address.user = request.user
+        address.save()
         return redirect('faktury:lista')
     return render(request, 'faktury/dodajadres.html', {'form': form})
 
@@ -168,7 +170,9 @@ def Personal_Data_form(request):
 def Service_form(request):
     form = ServiceForm(request.POST)
     if form.is_valid():
-        form.save()
+        service = form.save(commit=False)
+        service.user = request.user
+        service.save()
         return redirect('faktury:listaproduktow')
     return render(request, 'faktury/dodajusluge.html', {'form': form})
 
@@ -178,7 +182,9 @@ def Invoice_form(request):
     form = InvoiceForm(request.POST)
     form1 = Service_InvoiceForm(request.POST)
     if form.is_valid() and form1.is_valid():
-        invoice = form.save()
+        invoice = form.save(commit=False)
+        invoice.user = request.user
+        invoice.save()
         service = form1.save(commit=False)
         service.invoice = invoice
         service.save()
@@ -333,6 +339,7 @@ def upload_with_image(request):
             buyer = Personal_Data.create_no_nip(data[10], buyer_address)
             buyer.save()
             invoice = Invoice.create(data[0], '2021-12-12', '2021-12-12', '2021-12-12', seller, buyer)
+            invoice.user = request.user
             invoice.save()
             service1 = Service.create(data[17], data[19], data[20])
             service1.save()

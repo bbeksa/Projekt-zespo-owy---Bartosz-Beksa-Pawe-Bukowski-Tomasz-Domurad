@@ -13,6 +13,7 @@
         </thead>
         <tbody>
         {% for service in service_list %}
+        {% if service.user == user %}
         <tr>
             <th scope="row">{{ service.name }}</th>
             <td>{{ service.unit_price }}</td>
@@ -22,6 +23,7 @@
                 <a class="btn btn-danger btn-sm" href="{% url 'faktury:usunprodukt' service.id %}">Delete</a>
             </td>
         </tr>
+        {% endif %}
         {% endfor %}
         </tbody>
     </table>
