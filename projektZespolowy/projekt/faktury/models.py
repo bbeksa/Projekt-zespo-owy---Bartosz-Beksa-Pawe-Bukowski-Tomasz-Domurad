@@ -1,10 +1,11 @@
 from django.db import models
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 
 class City(models.Model):
     name = models.CharField(max_length=200)
     postcode = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -20,6 +21,7 @@ class Address(models.Model):
     apartment_number = models.IntegerField(null=True, blank=True)
     building_number = models.IntegerField(default=0)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return str(self.city.name) + " " + str(self.streetname) + " " + str(self.apartment_number) + "/" + str(
@@ -41,6 +43,7 @@ class Personal_Data(models.Model):
     name = models.CharField(max_length=200)
     nip = models.CharField(max_length=200, null=True, blank=True)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='address')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -60,6 +63,7 @@ class Service(models.Model):
     name = models.CharField(max_length=200)
     unit_price = models.DecimalField(decimal_places=2, max_digits=10)
     tax_rate = models.DecimalField(decimal_places=2, max_digits=2)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -78,6 +82,7 @@ class Invoice(models.Model):
     seller = models.ForeignKey(Personal_Data, on_delete=models.CASCADE, related_name='seller')
     buyer = models.ForeignKey(Personal_Data, on_delete=models.CASCADE, related_name='buyer')
     image = models.ImageField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.number

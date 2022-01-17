@@ -17,6 +17,7 @@
         </thead>
         <tbody>
         {% for invoice in invoice_list %}
+        {% if invoice.user == user %}
         <tr>
             <th scope="row"><a href="{% url 'faktury:faktura' invoice.id %}">{{ invoice.number }}</a></th>
             <td>{{ invoice.date_of_issue }}</td>
@@ -25,11 +26,13 @@
             <td>{{ invoice.seller.name }}</td>
             <td>{{ invoice.buyer.name }}</td>
             <td>
-                <a class="btn btn-success btn-sm" href="{% url 'faktury:dodajuslugedofaktury' invoice.id %}">Add product</a>
+                <a class="btn btn-success btn-sm" href="{% url 'faktury:dodajuslugedofaktury' invoice.id %}">Add
+                    product</a>
                 <a class="btn btn-warning btn-sm" href="{% url 'faktury:edytujfakture' invoice.id %}">Edit</a>
                 <a class="btn btn-danger btn-sm" href="{% url 'faktury:usunfakture' invoice.id %}">Delete</a>
             </td>
         </tr>
+        {% endif %}
         {% endfor %}
         </tbody>
     </table>

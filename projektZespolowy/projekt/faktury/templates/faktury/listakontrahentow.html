@@ -13,6 +13,7 @@
         </thead>
         <tbody>
         {% for data in data_list %}
+        {% if data.user == user %}
         <tr>
             <th scope="row">{{ data.name }}</th>
             <td>{{ data.nip }}</td>
@@ -22,6 +23,7 @@
                 <a class="btn btn-danger btn-sm" href="{% url 'faktury:usunkontrahenta' data.id %}">Delete</a>
             </td>
         </tr>
+        {% endif %}
         {% endfor %}
         </tbody>
     </table>
