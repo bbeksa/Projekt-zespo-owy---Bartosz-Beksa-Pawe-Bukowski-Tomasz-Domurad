@@ -1,14 +1,20 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.http import *
-from django.views import generic
-from django.template import loader
-from .forms import *
 import datetime
-from .dataFromText1 import DatafromTextW1
+from django.contrib.auth.decorators import login_required
+from django.http import *
+from django.shortcuts import get_object_or_404, render, redirect
+from django.template import loader
+from django.views import generic
+from django.core.files import File
+from django.core.files.storage import FileSystemStorage
 
+from .dataFromText1 import *
+from .textRecognition import *
+from .forms import *
+from .generatePDF import generateInvoice
 from .models import *
 
 
+@login_required
 def list0(request):
     invoice_list = Invoice.objects.all()
     template = loader.get_template('faktury/lista.html')
@@ -17,6 +23,8 @@ def list0(request):
     }
     return HttpResponse(template.render(context, request))
 
+
+@login_required
 def list1(request):
     invoice_list = Invoice.objects.order_by('number')
     template = loader.get_template('faktury/lista.html')
@@ -25,6 +33,8 @@ def list1(request):
     }
     return HttpResponse(template.render(context, request))
 
+
+@login_required
 def list2(request):
     invoice_list = Invoice.objects.order_by('date_of_issue')
     template = loader.get_template('faktury/lista.html')
@@ -33,6 +43,8 @@ def list2(request):
     }
     return HttpResponse(template.render(context, request))
 
+
+@login_required
 def list3(request):
     invoice_list = Invoice.objects.order_by('date_of_delivery')
     template = loader.get_template('faktury/lista.html')
@@ -41,6 +53,8 @@ def list3(request):
     }
     return HttpResponse(template.render(context, request))
 
+
+@login_required
 def list4(request):
     invoice_list = Invoice.objects.order_by('date_of_payment')
     template = loader.get_template('faktury/lista.html')
@@ -49,6 +63,8 @@ def list4(request):
     }
     return HttpResponse(template.render(context, request))
 
+
+@login_required
 def list5(request):
     invoice_list = Invoice.objects.order_by('seller')
     template = loader.get_template('faktury/lista.html')
@@ -57,6 +73,8 @@ def list5(request):
     }
     return HttpResponse(template.render(context, request))
 
+
+@login_required
 def list6(request):
     invoice_list = Invoice.objects.order_by('buyer')
     template = loader.get_template('faktury/lista.html')
@@ -66,6 +84,7 @@ def list6(request):
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def service_list(request):
     service_list = Service.objects.all()
     template = loader.get_template('faktury/listaproduktow.html')
@@ -75,6 +94,7 @@ def service_list(request):
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def traders_list(request):
     data_list = Personal_Data.objects.all()
     template = loader.get_template('faktury/listakontrahentow.html')
@@ -84,21 +104,25 @@ def traders_list(request):
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def Invoice_display(request, invoice_id):
+    if request.method == 'POST':
+        generateInvoice(invoice_id)
+        return redirect('faktury:lista')
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     service_invoice_list = Service_Invoice.objects.filter(invoice_id=invoice_id)
     totaltaxed = 0
     totaluntaxed = 0
     for service in service_invoice_list:
         service.untaxed = service.service.unit_price * service.quantity
-        service.taxed = "{:.2f}".format(float(service.untaxed * (1+service.service.tax_rate)))
+        service.taxed = "{:.2f}".format(float(service.untaxed * (1 + service.service.tax_rate)))
         totaluntaxed += service.untaxed
         totaltaxed += float(service.taxed)
     return render(request, 'faktury/faktura.html', {'invoice': invoice, 'service_invoice_list': service_invoice_list,
                                                     'totaltaxed': totaltaxed, 'totaluntaxed': totaluntaxed})
 
 
-
+@login_required
 def City_form(request):
     form = CityForm(request.POST)
     if form.is_valid():
@@ -107,14 +131,18 @@ def City_form(request):
     return render(request, 'faktury/dodajmiasto.html', {'form': form})
 
 
+@login_required
 def Address_form(request):
     form = AddressForm(request.POST)
     if form.is_valid():
-        form.save()
+        address = form.save(commit=False)
+        address.user = request.user
+        address.save()
         return redirect('faktury:lista')
     return render(request, 'faktury/dodajadres.html', {'form': form})
 
 
+@login_required
 def Personal_Data_form(request):
     form = Personal_DataForm(request.POST, prefix='name')
     form1 = AddressForm(request.POST)
@@ -136,24 +164,31 @@ def Personal_Data_form(request):
         address.save()
         data = form.save(commit=False)
         data.address = address
+        data.user = request.user
         data.save()
         return redirect('faktury:listakontrahentow')
     return render(request, 'faktury/dodajdane.html', {'form': form, 'form1': form1, 'form2': form2})
 
 
+@login_required
 def Service_form(request):
     form = ServiceForm(request.POST)
     if form.is_valid():
-        form.save()
+        service = form.save(commit=False)
+        service.user = request.user
+        service.save()
         return redirect('faktury:listaproduktow')
     return render(request, 'faktury/dodajusluge.html', {'form': form})
 
 
+@login_required
 def Invoice_form(request):
     form = InvoiceForm(request.POST)
     form1 = Service_InvoiceForm(request.POST)
     if form.is_valid() and form1.is_valid():
-        invoice = form.save()
+        invoice = form.save(commit=False)
+        invoice.user = request.user
+        invoice.save()
         service = form1.save(commit=False)
         service.invoice = invoice
         service.save()
@@ -161,6 +196,7 @@ def Invoice_form(request):
     return render(request, 'faktury/dodajfakture.html', {'form': form, 'form1': form1})
 
 
+@login_required
 def Service_Invoice_form(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     form = Service_InvoiceForm(request.POST)
@@ -172,6 +208,7 @@ def Service_Invoice_form(request, invoice_id):
     return render(request, 'faktury/dodajuslugedofaktury.html', {'form': form})
 
 
+@login_required
 def Invoice_delete_form(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     if request.method == "POST":
@@ -180,6 +217,7 @@ def Invoice_delete_form(request, invoice_id):
     return render(request, 'faktury/usunfakture.html', {'invoice': invoice})
 
 
+@login_required
 def Invoice_edit_form(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     service_invoice_list = Service_Invoice.objects.filter(invoice_id=invoice_id)
@@ -195,6 +233,7 @@ def Invoice_edit_form(request, invoice_id):
     return render(request, 'faktury/edytujfakture.html', {'form': form, 'service_invoice_list': service_invoice_list})
 
 
+@login_required
 def Service_delete_form(request, service_id):
     service = get_object_or_404(Service, pk=service_id)
     if request.method == "POST":
@@ -203,9 +242,10 @@ def Service_delete_form(request, service_id):
     return render(request, 'faktury/usunprodukt.html', {'service': service})
 
 
+@login_required
 def Service_edit_form(request, service_id):
     service = get_object_or_404(Service, pk=service_id)
-    data = {'name':service.name, 'unit_price':service.unit_price, 'tax_rate':service.tax_rate}
+    data = {'name': service.name, 'unit_price': service.unit_price, 'tax_rate': service.tax_rate}
     form = ServiceForm(initial=data)
     if request.method == 'POST':
         form = ServiceForm(request.POST, instance=service)
@@ -215,6 +255,7 @@ def Service_edit_form(request, service_id):
     return render(request, 'faktury/edytujprodukt.html', {'form': form})
 
 
+@login_required
 def Service_Invoice_delete_form(request, service_invoice_id):
     service_invoice = get_object_or_404(Service_Invoice, pk=service_invoice_id)
     if request.method == "POST":
@@ -223,9 +264,11 @@ def Service_Invoice_delete_form(request, service_invoice_id):
     return render(request, 'faktury/usunproduktzfaktury.html', {'service_invoice': service_invoice})
 
 
+@login_required
 def Service_Invoice_edit_form(request, service_invoice_id):
     service_invoice = get_object_or_404(Service_Invoice, pk=service_invoice_id)
-    data = {'service': service_invoice.service, 'quantity': service_invoice.quantity, 'invoice': service_invoice.invoice}
+    data = {'service': service_invoice.service, 'quantity': service_invoice.quantity,
+            'invoice': service_invoice.invoice}
     form = Service_InvoiceForm(initial=data)
     if request.method == "POST":
         form = Service_InvoiceForm(request.POST, instance=service_invoice)
@@ -235,6 +278,7 @@ def Service_Invoice_edit_form(request, service_invoice_id):
     return render(request, 'faktury/edytujproduktzfaktury.html', {'form': form})
 
 
+@login_required
 def Data_delete_form(request, personal_data_id):
     personal_data = get_object_or_404(Personal_Data, pk=personal_data_id)
     if request.method == "POST":
@@ -243,6 +287,7 @@ def Data_delete_form(request, personal_data_id):
     return render(request, 'faktury/ununkontrahenta.html', {'personal_data': personal_data})
 
 
+@login_required
 def Data_edit_form(request, personal_data_id):
     personal_data = get_object_or_404(Personal_Data, pk=personal_data_id)
     data_address = get_object_or_404(Address, pk=personal_data.address.id)
@@ -277,12 +322,22 @@ def Data_edit_form(request, personal_data_id):
     return render(request, 'faktury/edytujkontrahenta.html', {'form': form, 'form1': form1, 'form2': form2})
 
 
+@login_required
 def upload_with_image(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            data = DatafromTextW1("/text_result2.txt")
-            image = request.FILES['file']
+            file = request.FILES['file']
+            folder = 'uploads/'
+            fs = FileSystemStorage(location=folder)
+            filename = fs.save(file.name, file)
+            textRecognition(folder + filename)
+            if filename[1] == '1':
+                data = DatafromTextW1("text_result2.txt")
+            elif filename[1] == '2':
+                data = DatafromTextW2("text_result2.txt")
+            else:
+                data = DatafromTextW3("text_result2.txt")
             # wyłuskanie danych ze skanu
             seller_city = City.create(data[7], data[6])
             seller_city.save()
@@ -296,20 +351,29 @@ def upload_with_image(request):
             seller.save()
             buyer = Personal_Data.create_no_nip(data[10], buyer_address)
             buyer.save()
-            invoice = Invoice.create(data[0], '2021-12-12', '2021-12-12', '2021-12-12', seller, buyer)
+            invoice = Invoice.create(data[0], data[2], data[2], data[3], seller, buyer)
+            invoice.user = request.user
             invoice.save()
-            service1 = Service.create(data[17], 10.00, 0.32)
+            #data19 = data[19].split(",", 1)
+            #d19 = float(data19[0]) + float(data19[1])/100
+            service1 = Service.create(data[17], data[19], data[20])
             service1.save()
             addservice1 = Service_Invoice.create(service1, data[18], invoice)
             addservice1.save()
-            service2 = Service.create(data[21], 10.00, 0.23)
-            service2.save()
-            addservice2 = Service_Invoice.create(service2, data[22], invoice)
-            addservice2.save()
-            service3 = Service.create(data[25], 10.00, 0.23)
-            service3.save()
-            addservice3 = Service_Invoice.create(service3, data[26], invoice)
-            addservice3.save()
+            if data[21] != " ":
+                #data23 = data[23].split(",", 1)
+                #d23 = float(data23[0]) + float(data23[1]) / 100
+                service2 = Service.create(data[21], data[23], data[24])
+                service2.save()
+                addservice2 = Service_Invoice.create(service2, data[22], invoice)
+                addservice2.save()
+            if data[25] != " ":
+                #data27 = data[27].split(",", 1)
+                #d27 = float(data27[0]) + float(data27[1]) / 100
+                service3 = Service.create(data[25], data[27], data[28])
+                service3.save()
+                addservice3 = Service_Invoice.create(service3, data[26], invoice)
+                addservice3.save()
             return redirect('faktury:lista')
     else:
         form = UploadFileForm(request.POST, request.FILES)

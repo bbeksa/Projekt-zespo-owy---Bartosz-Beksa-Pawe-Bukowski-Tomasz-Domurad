@@ -2,14 +2,15 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center">Invoice {{ invoice.number }}</h1>
+
     <div class="container text-center">
-        <a class="btn btn-success btn-sm" href="/faktury/dodajuslugedofaktury/{{ invoice.id }}/">Add product</a>
-        <a class="btn btn-warning btn-sm" href="/faktury/edytujfakture/{{ invoice.id }}/">Edit</a>
-        <a class="btn btn-danger btn-sm" href="/faktury/usunfakture/{{ invoice.id }}/">Delete</a>
-		<form method="post">
-		{% csrf_token %}
-		<button type="submit" value="Submit using POST"><a>generuj</a></button>
-		</form>
+        <a class="btn btn-success btn-sm" href="{% url 'faktury:dodajuslugedofaktury' invoice.id %}">Add product</a>
+        <a class="btn btn-warning btn-sm" href="{% url 'faktury:edytujfakture' invoice.id %}">Edit</a>
+        <a class="btn btn-danger btn-sm" href="{% url 'faktury:usunfakture' invoice.id %}">Delete</a>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-success btn-sm mt-2" type="submit" value="Submit using POST"><a>Generate PDF</a></button>
+        </form>
     </div>
     <div class="container mt-2">
         <ul class="list-group list-group-flush">
@@ -20,12 +21,15 @@
             <li class="list-group-item">Date of payment: {{ invoice.date_of_payment }}</li>
         </ul>
     </div>
-	<div class="container mt-2">
+    <div class="container mt-2">
         <ul class="list-group list-group-flush">
-			{% for service in service_invoice_list %}
-				<li class="list-group-item">Product: {{ service.service.name }} | Ilość: {{ service.quantity }} | Łączna wartość netto: {{ service.untaxed }} | Łączna wartość brutto: {{ service.taxed }}</li>
-			{% endfor %}
-			<li class="list-group-item">Łączna wartość netto: {{ totaluntaxed }} | Łączna wartość brutto: {{ totaltaxed }}</li>
+            {% for service in service_invoice_list %}
+            <li class="list-group-item">Product: {{ service.service.name }} | Ilość: {{ service.quantity }} | Łączna
+                wartość netto: {{ service.untaxed }} | Łączna wartość brutto: {{ service.taxed }}
+            </li>
+            {% endfor %}
+            <li class="list-group-item">Łączna wartość netto: {{ totaluntaxed }} | Łączna wartość brutto: {{ totaltaxed }}
+            </li>
         </ul>
     </div>
     <div class="container text-center mt-3">

@@ -1,7 +1,7 @@
 {% extends "faktury/base.html" %}
 {% block content %}
 <div class="container mt-2">
-    <a class="btn btn-success btn-sm mx-1 my-2" href="/faktury/dodajusluge">Add product</a>
+    <a class="btn btn-success btn-sm mx-1 my-2" href="{% url 'faktury:dodajusluge' %}">Add product</a>
     <table class="table table-striped table-bordered table-sm">
         <thead class="thead-dark">
         <tr>
@@ -13,15 +13,17 @@
         </thead>
         <tbody>
         {% for service in service_list %}
+        {% if service.user == user %}
         <tr>
             <th scope="row">{{ service.name }}</th>
             <td>{{ service.unit_price }}</td>
             <td>{{ service.tax_rate }}</td>
             <td>
-                <a class="btn btn-warning btn-sm" href="/faktury/edytujprodukt/{{ service.id }}/">Edit</a>
-                <a class="btn btn-danger btn-sm" href="/faktury/usunprodukt/{{ service.id }}/">Delete</a>
+                <a class="btn btn-warning btn-sm" href="{% url 'faktury:edytujprodukt' service.id %}">Edit</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'faktury:usunprodukt' service.id %}">Delete</a>
             </td>
         </tr>
+        {% endif %}
         {% endfor %}
         </tbody>
     </table>

@@ -1,19 +1,19 @@
-from django.contrib import admin
-from django.urls import path
-from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path
 
+from . import views
 
 app_name = 'faktury'
 urlpatterns = [
-    path('lista/', views.list0, name='lista'),
-    path('lista/1', views.list1, name='lista'),
-    path('lista/2', views.list2, name='lista'),
-    path('lista/3', views.list3, name='lista'),
-    path('lista/4', views.list4, name='lista'),
-    path('lista/5', views.list5, name='lista'),
-    path('lista/6', views.list6, name='lista'),
+    path('', views.list0, name='lista'),
+    path('lista/1/', views.list1, name='lista1'),
+    path('lista/2/', views.list2, name='lista2'),
+    path('lista/3/', views.list3, name='lista3'),
+    path('lista/4/', views.list4, name='lista4'),
+    path('lista/5/', views.list5, name='lista5'),
+    path('lista/6/', views.list6, name='lista6'),
     path('listakontrahentow/', views.traders_list, name='listakontrahentow'),
     path('listaproduktow/', views.service_list, name='listaproduktow'),
     path('dodajmiasto/', views.City_form, name='dodajmiasto'),
@@ -28,11 +28,11 @@ urlpatterns = [
     path('usunprodukt/<int:service_id>/', views.Service_delete_form, name='usunprodukt'),
     path('edytujprodukt/<int:service_id>/', views.Service_edit_form, name='edytujprodukt'),
     path('usunproduktzfaktury/<int:service_invoice_id>/', views.Service_Invoice_delete_form, name='usunproduktzfaktuy'),
-    path('edytujproduktzfaktury/<int:service_invoice_id>/', views.Service_Invoice_edit_form, name='edytujproduktzfaktuy'),
-    path('usunkontrahenta/<int:personal_data_id>/', views.Data_delete_form, name='usunkontahenta'),
+    path('edytujproduktzfaktury/<int:service_invoice_id>/', views.Service_Invoice_edit_form,
+         name='edytujproduktzfaktury'),
+    path('usunkontrahenta/<int:personal_data_id>/', views.Data_delete_form, name='usunkontrahenta'),
     path('edytujkontrahenta/<int:personal_data_id>/', views.Data_edit_form, name='edytujkontrahenta'),
     path('dodajuslugedofaktury/<int:invoice_id>/', views.Service_Invoice_form, name='dodajuslugedofaktury'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

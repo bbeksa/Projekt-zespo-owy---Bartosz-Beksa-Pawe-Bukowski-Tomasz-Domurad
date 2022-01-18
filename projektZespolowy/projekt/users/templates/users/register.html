@@ -1,0 +1,42 @@
+{% extends "faktury/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+            <div class="col-sm-10">
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                {{ form.email }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword1" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                {{ form.password1 }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword2" class="col-sm-2 col-form-label">Repeat Password</label>
+            <div class="col-sm-10">
+                {{ form.password2 }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+        </small>
+    </div>
+</div>
+{% endblock content %}
