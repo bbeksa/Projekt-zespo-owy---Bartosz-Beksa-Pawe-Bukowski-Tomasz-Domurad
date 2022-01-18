@@ -350,7 +350,7 @@ def upload_with_image(request):
             seller.save()
             buyer = Personal_Data.create_no_nip(data[10], buyer_address)
             buyer.save()
-            invoice = Invoice.create(data[0], '2021-12-12', '2021-12-12', '2021-12-12', seller, buyer)
+            invoice = Invoice.create(data[0], data[2], data[2], data[3], seller, buyer)
             invoice.user = request.user
             invoice.save()
             data19 = data[19].split(",", 1)
