@@ -1,5 +1,7 @@
-Faktura
-Nr: FV_1/08/2020
+Faktura nr: FV 1/11/20/A
+
+Data wystawienia: 25-11-2020
+Data sprzeda¿y / wykonania us³ugi: 25-11-2020
 
  
 
@@ -7,73 +9,41 @@ Nr: FV_1/08/2020
 
  
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
-Miejsce wystawienia: Poznañ
-Data wystawienia: 15-08-2020
-Data sprzeda¿y: 15-08-2020
 Sprzedawca Nabywca
-P.H.U. Janusz Pietruszka Witold Wiadro
-Krzywa 12 Kwiatowa 420
-60-135 Poznañ 67-240 Kozie Do³y
-NIP 4211123842
-Lp. | Nazwa towaru / us³ugi Jm | lloœæ | Cena netto VAT Wartoœæ netto | Wartoœæ VAT | Wartoœæ brutto
-1. towar1 szt. 1 100,00 5% 100,00 5,00 105,00
-2. towar2 szt. 1 80,00 — 8% 80,00 6,40 86,40
-3. towar3 szt. 1 20,00 — 23% 20,00 4,60 24,60
-Razem x 200,00 16,00 216,00
-Wtym 3% 20,00 4,60 24,60
-8% 80,00| 6,40 86,40
-5% 100,00 5,00 105,00
-Razem: 216,00 PLN Kwota s³ownie: dwieœcie szesnaœcie PLN 34/100
-Do zap³aty: 216,00 PLN
-Forma p³atnoœci: przelew
-Termin zap³aty::  16-08-2020
-
-Numer konta:
-Bank:
-
-21376921156942021376969420
-PKO Bank Polski
+LTB sp. z o.o. Nazwa kontrahenta
+ul. Drukarska 38 ul. Wiejska 5-7
+53-312 Wroc³aw 00-000 Warszawa
+NIP: PL8942982467 NIP: PLO
+Bank: Meritum Bank
+Konto: PL99 9999 9999 9999 9999 9999 9999
+Swift: FFFFFFF Waluta konta: PLN
+P³atnoœæ: Barter
+Lp. |Nazwa towaru lub us³ugi | um. | noœæ Cena netto |Vat(%) I Wartoœæ netto
+1 Us³uga numer 1 I szt 1 1 000,00 PLN I 23% 1 000,00 PLN
 
  
 
-Osoba upowa¿niona do wystawienia
-
-Osoba upowa¿niona do odbioru
+ 
 
  
+
+Zap³acono:  0,00 PLN
+Do zap³aty: 41 230,00 PLN
+
+S³ownie: jeden tysi¹c dwieœcie trzydzieœci
+PLN 00 / 100
+
+(osoba upowa¿niona do wystawienia faktury)
+
+Wydrukowano z programu melpe.pl
+
+[ osnownie Ao Jrane J ]
+
+- | - 100000PLN 230,00 PLN 1 230,00 PLN
+Razem (PLN) 1 000,00 PLN — 230,00 PLN 1.230,00 PLN
+
+ 
+
+(osoba upowa¿niona do odbioru faktury)
+
+str. 11

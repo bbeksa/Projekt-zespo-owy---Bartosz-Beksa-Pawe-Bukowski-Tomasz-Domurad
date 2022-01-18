@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container mt-5">
     <h1>Having problems with working with this site</h1>
-    <form method="post">
+    <form enctype="multipart/form-data" method="post">
         {% csrf_token %}
         <div class="custom-file">
             {{ form.as_p }}
