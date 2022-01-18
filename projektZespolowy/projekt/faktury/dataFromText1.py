@@ -136,8 +136,8 @@ def DatafromTextW2(nazwa):
     bank = ' '
 
     return [numerFaktury, miasto, dataWystawienia, dataSprzedazy,
-            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy,
-            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy, NIP,
+            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy[0],
+            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy[0], NIP,
             nazwaTowaru1, ilosc1, cenaNetto1, VAT1,
             nazwaTowaru2, ilosc2, cenaNetto2, VAT2,
             nazwaTowaru3, ilosc3, cenaNetto3, VAT3,
@@ -207,8 +207,8 @@ def DatafromTextW3(nazwa):
     bank = ' '
 
     return [numerFaktury, miasto, dataWystawienia, dataSprzedazy,
-            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy,
-            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy, NIP,
+            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy[0],
+            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy[0], NIP,
             nazwaTowaru1, ilosc1, cenaNetto1, VAT1,
             nazwaTowaru2, ilosc2, cenaNetto2, VAT2,
             nazwaTowaru3, ilosc3, cenaNetto3, VAT3,

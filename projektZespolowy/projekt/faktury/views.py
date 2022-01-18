@@ -353,23 +353,23 @@ def upload_with_image(request):
             invoice = Invoice.create(data[0], data[2], data[2], data[3], seller, buyer)
             invoice.user = request.user
             invoice.save()
-            data19 = data[19].split(",", 1)
-            d19 = float(data19[0]) + float(data19[1])/100
-            service1 = Service.create(data[17], d19, data[20])
+            #data19 = data[19].split(",", 1)
+            #d19 = float(data19[0]) + float(data19[1])/100
+            service1 = Service.create(data[17], data[19], data[20])
             service1.save()
             addservice1 = Service_Invoice.create(service1, data[18], invoice)
             addservice1.save()
             if data[21] != " ":
-                data23 = data[23].split(",", 1)
-                d23 = float(data23[0]) + float(data23[1]) / 100
-                service2 = Service.create(data[21], d23, data[24])
+                #data23 = data[23].split(",", 1)
+                #d23 = float(data23[0]) + float(data23[1]) / 100
+                service2 = Service.create(data[21], data[23], data[24])
                 service2.save()
                 addservice2 = Service_Invoice.create(service2, data[22], invoice)
                 addservice2.save()
             if data[25] != " ":
-                data27 = data[27].split(",", 1)
-                d27 = float(data27[0]) + float(data27[1]) / 100
-                service3 = Service.create(data[25], d27, data[28])
+                #data27 = data[27].split(",", 1)
+                #d27 = float(data27[0]) + float(data27[1]) / 100
+                service3 = Service.create(data[25], data[27], data[28])
                 service3.save()
                 addservice3 = Service_Invoice.create(service3, data[26], invoice)
                 addservice3.save()
