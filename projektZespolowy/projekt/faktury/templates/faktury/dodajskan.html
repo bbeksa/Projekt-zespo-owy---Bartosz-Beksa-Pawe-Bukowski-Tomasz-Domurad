@@ -2,8 +2,7 @@
 {% block content %}
 <div class="container mt-5">
     <h1>Select a file to upload invoice.</h1>
-    <form method="post">
-
+    <form enctype="multipart/form-data" method="post">
         {% csrf_token %}
         <div class="custom-file">
             {{ form.as_p }}

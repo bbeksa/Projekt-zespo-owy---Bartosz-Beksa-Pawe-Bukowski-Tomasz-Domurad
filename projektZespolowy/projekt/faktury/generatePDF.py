@@ -230,7 +230,7 @@ def generateInvoice(invoice_id):
     pdf.add_page()
     pdf.set_xy(0, 0)
 
-    pdf.add_font('DejaVu', '', 'faktury\DejaVuSansCondensed.ttf', uni=True)
+    pdf.add_font('DejaVu', '', 'projektZespolowy/projekt/faktury/DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('DejaVu', '', 18)
 
     pdf.cell(60)
@@ -264,7 +264,7 @@ def generateInvoice(invoice_id):
         pdf.cell(100, 6, str(
             str(invoice.seller.address.streetname) + " " + str(invoice.seller.address.building_number) + "/" + str(invoice.seller.address.apartment_number)),0, 0, 'L')
     else:
-        pdf.cell(100, 6, str(invoice.seller.address.streetname + " " + invoice.seller.address.building_number), 0, 0,'L')
+        pdf.cell(100, 6, str(invoice.seller.address.streetname) + " " + str(invoice.seller.address.building_number), 0, 0, 'L')
     if invoice.buyer.address.apartment_number is not None:
         pdf.cell(20, 6, str(invoice.buyer.address.streetname) + " " + str(invoice.buyer.address.building_number) + "/" + str(invoice.buyer.address.apartment_number),0, 1, 'L')
     else:

@@ -1,0 +1,49 @@
+Faktura nr: FV 1/11/20/A
+
+Data wystawienia: 25-11-2020
+Data sprzeda¿y / wykonania us³ugi: 25-11-2020
+
+ 
+
+ 
+
+ 
+
+Sprzedawca Nabywca
+LTB sp. z o.o. Nazwa kontrahenta
+ul. Drukarska 38 ul. Wiejska 5-7
+53-312 Wroc³aw 00-000 Warszawa
+NIP: PL8942982467 NIP: PLO
+Bank: Meritum Bank
+Konto: PL99 9999 9999 9999 9999 9999 9999
+Swift: FFFFFFF Waluta konta: PLN
+P³atnoœæ: Barter
+Lp. |Nazwa towaru lub us³ugi | um. | noœæ Cena netto |Vat(%) I Wartoœæ netto
+1 Us³uga numer 1 I szt 1 1 000,00 PLN I 23% 1 000,00 PLN
+
+ 
+
+ 
+
+ 
+
+Zap³acono:  0,00 PLN
+Do zap³aty: 41 230,00 PLN
+
+S³ownie: jeden tysi¹c dwieœcie trzydzieœci
+PLN 00 / 100
+
+(osoba upowa¿niona do wystawienia faktury)
+
+Wydrukowano z programu melpe.pl
+
+[ osnownie Ao Jrane J ]
+
+- | - 100000PLN 230,00 PLN 1 230,00 PLN
+Razem (PLN) 1 000,00 PLN — 230,00 PLN 1.230,00 PLN
+
+ 
+
+(osoba upowa¿niona do odbioru faktury)
+
+str. 11

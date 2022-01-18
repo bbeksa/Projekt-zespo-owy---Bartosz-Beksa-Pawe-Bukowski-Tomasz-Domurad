@@ -4,7 +4,7 @@ import os
 #wzorfaktury4.png i 4v2 TYLKO na 3 produkty
 def DatafromTextW1(nazwa):
 
-    file = open(os.path.dirname(__file__) + nazwa)
+    file = open(os.path.dirname(__file__) + "/../" + nazwa)
 
     content = file.readlines()
 
@@ -75,7 +75,7 @@ def DatafromTextW1(nazwa):
 #wzór faktury generowanej przez program TYLKO na 2 produkty
 def DatafromTextW2(nazwa):
 
-    file = open(os.path.dirname(__file__) + nazwa)
+    file = open(os.path.dirname(__file__) + "/../" + nazwa)
 
     content = file.readlines()
 
@@ -146,7 +146,7 @@ def DatafromTextW2(nazwa):
 #wzorfaktury8.png TYLKO na 1 produkt
 def DatafromTextW3(nazwa):
 
-    file = open(os.path.dirname(__file__) + nazwa)
+    file = open(os.path.dirname(__file__) + "/../" + nazwa)
 
     content = file.readlines()
 
