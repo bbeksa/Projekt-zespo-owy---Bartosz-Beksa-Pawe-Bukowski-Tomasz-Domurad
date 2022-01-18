@@ -164,6 +164,7 @@ def Personal_Data_form(request):
         address.save()
         data = form.save(commit=False)
         data.address = address
+        data.user = request.user
         data.save()
         return redirect('faktury:listakontrahentow')
     return render(request, 'faktury/dodajdane.html', {'form': form, 'form1': form1, 'form2': form2})
