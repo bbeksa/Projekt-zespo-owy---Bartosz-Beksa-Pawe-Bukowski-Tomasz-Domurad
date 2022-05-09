@@ -1,10 +1,11 @@
 from decimal import Decimal
-
+import os
 from fpdf import FPDF
 from num2words import num2words
 
 from django.shortcuts import get_object_or_404
 from .models import *
+
 
 def create_table(table_data, title='', data_size=10, title_size=12, align_data='L', align_header='L', cell_width='even',
                  x_start='x_default', emphasize_data=None, emphasize_style=None, emphasize_color=(0, 0, 0), pdf=None):
@@ -230,7 +231,7 @@ def generateInvoice(invoice_id):
     pdf.add_page()
     pdf.set_xy(0, 0)
 
-    pdf.add_font('DejaVu', '', 'projektZespolowy/projekt/faktury/DejaVuSansCondensed.ttf', uni=True)
+    pdf.add_font('DejaVu', '', os.path.dirname(__file__) + '/DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('DejaVu', '', 18)
 
     pdf.cell(60)

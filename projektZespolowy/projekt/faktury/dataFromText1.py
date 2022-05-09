@@ -4,17 +4,21 @@ import os
 #wzorfaktury4.png i 4v2 TYLKO na 3 produkty
 def DatafromTextW1(nazwa):
 
-    file = open(os.path.dirname(__file__) + "/../" + nazwa)
+    file = open(os.path.dirname(__file__) + "/../" +  nazwa)
 
     content = file.readlines()
 
     numerFaktury = content[1].split(None, 1)[1]
+    numerFaktury = numerFaktury[:-1]
 
     miasto = content[45].split(None, 2)[2]
+    miasto = miasto[:-1]
 
     dataWystawienia = content[46].split(None, 2)[2]
+    dataWystawienia = dataWystawienia[:-1]
 
     dataSprzedazy = content[47].split(None, 2)[2]
+    dataSprzedazy = dataSprzedazy[:-1]
 
     sprzedawcaImie = content[49].split()[1]
     sprzedawcaNazwisko = content[49].split()[2]
@@ -30,11 +34,13 @@ def DatafromTextW1(nazwa):
 
     nabywcaKodPocztowy = content[51].split(None, 3)[2]
     nabywcaMiasto = content[51].split(None, 3)[3]
+    nabywcaMiasto = nabywcaMiasto[:-1]
 
     nabywcaUlica = content[50].split()[2]
     nabywcaNrUlicy = content[50].split()[3]
 
     NIP = content[52].split(None, 1)[1]
+    NIP = NIP[:-1]
 
     nazwaTowaru1 = content[54].split()[1]
     ilosc1 = content[54].split()[3]
@@ -45,13 +51,13 @@ def DatafromTextW1(nazwa):
     nazwaTowaru2 = content[55].split()[1]
     ilosc2 = content[55].split()[3]
     cenaNetto2 = content[55].split()[4]
-    VAT2 = content[55].split()[6]
+    VAT2 = content[55].split()[5]
     VAT2 = float(VAT2[:-1])/100
 
     nazwaTowaru3 = content[56].split()[1]
     ilosc3 = content[56].split()[3]
     cenaNetto3 = content[56].split()[4]
-    VAT3 = content[56].split()[6]
+    VAT3 = content[56].split()[5]
     VAT3 = float(VAT3[:-1])/100
 
     slownie = content[61].split(None, 5)[5]
@@ -59,14 +65,15 @@ def DatafromTextW1(nazwa):
     formaPlatnosci = content[63].split(None, 2)[2]
 
     terminZaplaty = content[64].split(None, 2)[2]
+    terminZaplaty = terminZaplaty[:-1]
 
     numerKonta = content[69]
 
     bank = content[70]
 
     return [numerFaktury, miasto, dataWystawienia, dataSprzedazy,
-            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy,
-            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy, NIP,
+            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy[0],
+            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy[0], NIP,
             nazwaTowaru1, ilosc1, cenaNetto1, VAT1,
             nazwaTowaru2, ilosc2, cenaNetto2, VAT2,
             nazwaTowaru3, ilosc3, cenaNetto3, VAT3,
@@ -136,8 +143,8 @@ def DatafromTextW2(nazwa):
     bank = ' '
 
     return [numerFaktury, miasto, dataWystawienia, dataSprzedazy,
-            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy,
-            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy, NIP,
+            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy[0],
+            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy[0], NIP,
             nazwaTowaru1, ilosc1, cenaNetto1, VAT1,
             nazwaTowaru2, ilosc2, cenaNetto2, VAT2,
             nazwaTowaru3, ilosc3, cenaNetto3, VAT3,
@@ -207,8 +214,8 @@ def DatafromTextW3(nazwa):
     bank = ' '
 
     return [numerFaktury, miasto, dataWystawienia, dataSprzedazy,
-            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy,
-            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy, NIP,
+            sprzedawcaImie, sprzedawcaNazwisko, sprzedawcaKodPocztowy, sprzedawcaMiasto, sprzedawcaUlica, sprzedawcaNrUlicy[0],
+            nabywcaImie, nabywcaNazwisko, nabywcaKodPocztowy, nabywcaMiasto, nabywcaUlica, nabywcaNrUlicy[0], NIP,
             nazwaTowaru1, ilosc1, cenaNetto1, VAT1,
             nazwaTowaru2, ilosc2, cenaNetto2, VAT2,
             nazwaTowaru3, ilosc3, cenaNetto3, VAT3,
