@@ -260,7 +260,7 @@ def Service_Invoice_delete_form(request, service_invoice_id):
     service_invoice = get_object_or_404(Service_Invoice, pk=service_invoice_id)
     if request.method == "POST":
         service_invoice.delete()
-        return redirect('/faktury/edytujfakture/' + str(service_invoice.invoice.id))
+        return redirect('/edytujfakture/' + str(service_invoice.invoice.id))
     return render(request, 'faktury/usunproduktzfaktury.html', {'service_invoice': service_invoice})
 
 
@@ -274,7 +274,7 @@ def Service_Invoice_edit_form(request, service_invoice_id):
         form = Service_InvoiceForm(request.POST, instance=service_invoice)
         if form.is_valid():
             form.save()
-            return redirect('/faktury/edytujfakture/' + str(service_invoice.invoice.id))
+            return redirect('/edytujfakture/' + str(service_invoice.invoice.id))
     return render(request, 'faktury/edytujproduktzfaktury.html', {'form': form})
 
 
