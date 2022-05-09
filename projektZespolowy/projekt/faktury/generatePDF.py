@@ -154,12 +154,6 @@ def generateInvoice(invoice_id):
         ["Lp.", "Nazwa towaru / usługi", "Ilość", "Cena netto", "VAT", "Wartość netto", "Wartość VAT", "Wartość brutto"]
     ]
     summary = [["Razem", "X", " ", " ", " "]]
-    for _ in range(3):
-        summary.append(['' for x in range(5)])
-
-    invoice = get_object_or_404(Invoice, pk=invoice_id)
-    service_list = Service_Invoice.objects.filter(invoice_id=invoice_id)
-    x = 0
     sum_netto = 0
     sum_netto_23 = 0
     sum_netto_8 = 0
@@ -172,7 +166,13 @@ def generateInvoice(invoice_id):
     sum_brutto_23 = 0
     sum_brutto_8 = 0
     sum_brutto_5 = 0
+    for _ in range(3):
+        summary.append(['' for x in range(5)])
 
+    invoice = get_object_or_404(Invoice, pk=invoice_id)
+    service_list = Service_Invoice.objects.filter(invoice_id=invoice_id)
+
+    x = 0
     for service in service_list:
         product = Service.objects.filter(pk=service.service.id)
         ilosc = service.quantity
@@ -184,25 +184,25 @@ def generateInvoice(invoice_id):
         sum_netto += product[0].unit_price * ilosc
         if float(product[0].tax_rate) == 0.23:
             sum_netto_23 += product[0].unit_price * ilosc
-        if float(product[0].tax_rate) == 0.8:
+        if float(product[0].tax_rate) == 0.08:
             sum_netto_8 += product[0].unit_price * ilosc
-        if float(product[0].tax_rate) == 0.5:
+        if float(product[0].tax_rate) == 0.05:
             sum_netto_5 += product[0].unit_price * ilosc
 
         sum_vat += product[0].unit_price * ilosc * product[0].tax_rate
         if float(product[0].tax_rate) == 0.23:
             sum_vat_23 += product[0].unit_price * ilosc * product[0].tax_rate
-        if float(product[0].tax_rate) == 0.8:
+        if float(product[0].tax_rate) == 0.08:
             sum_vat_8 += product[0].unit_price * ilosc * product[0].tax_rate
-        if float(product[0].tax_rate) == 0.5:
+        if float(product[0].tax_rate) == 0.05:
             sum_vat_5 += product[0].unit_price * ilosc * product[0].tax_rate
 
         sum_brutto += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
         if float(product[0].tax_rate) == 0.23:
             sum_brutto_23 += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
-        if float(product[0].tax_rate) == 0.8:
+        if float(product[0].tax_rate) == 0.08:
             sum_brutto_8 += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
-        if float(product[0].tax_rate) == 0.5:
+        if float(product[0].tax_rate) == 0.05:
             sum_brutto_5 += product[0].unit_price * ilosc + product[0].unit_price * ilosc * product[0].tax_rate
 
     summary[0][0] = "Razem"
@@ -294,7 +294,7 @@ def generateInvoice(invoice_id):
 
     pdf.cell(35, 6, 'Razem:', 0, 0, 'L')
     pdf.cell(50, 6, str(round(sum_brutto, 2)) + " PLN", 0, 0, 'L')
-    pdf.cell(20, 6, num2words(round(sum_brutto, 2), lang='pl') + " PLN", 0, 1, 'L')
+    pdf.cell(15, 6, "Słownie: " + num2words(round(sum_brutto), lang='pl') + " PLN " + num2words(int((round(sum_brutto, 2) - round(sum_brutto)) * 100), lang='pl') + " grosze", 0, 1, 'L')
     pdf.cell(20, 2, " ", 0, 0, 'L')
     pdf.cell(2, 2, " ", 0, 1, 'L')
     pdf.cell(35, 6, 'Do zapłaty:', 0, 0, 'L')
