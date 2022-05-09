@@ -55,7 +55,7 @@
 			{% for service in service_invoice_list %}
 				<li class="list-group-item">Product: {{ service.service.name }} | {{ service.quantity }}		
 				<a class="btn btn-warning btn-sm" href="{% url 'faktury:edytujproduktzfaktury' service.id %}">Edit</a>
-				<a class="btn btn-danger btn-sm" href="{% url 'faktury:edytujproduktzfaktury' service.id %}">Delete</a></li>
+				<a class="btn btn-danger btn-sm" href="{% url 'faktury:usunproduktzfaktury' service.id %}">Delete</a></li>
 			{% endfor %}
         </ul>
     </div>
