@@ -1,4 +1,5 @@
 import os
+import datetime
 
 
 #wzorfaktury4.png i 4v2 TYLKO na 3 produkty
@@ -16,9 +17,11 @@ def DatafromTextW1(nazwa):
 
     dataWystawienia = content[46].split(None, 2)[2]
     dataWystawienia = dataWystawienia[:-1]
+    dataWystawienia = datetime.datetime.strptime(dataWystawienia, '%d-%m-%Y').strftime('%Y-%m-%d')
 
     dataSprzedazy = content[47].split(None, 2)[2]
     dataSprzedazy = dataSprzedazy[:-1]
+    dataSprzedazy = datetime.datetime.strptime(dataSprzedazy, '%d-%m-%Y').strftime('%Y-%m-%d')
 
     sprzedawcaImie = content[49].split()[1]
     sprzedawcaNazwisko = content[49].split()[2]
@@ -45,18 +48,21 @@ def DatafromTextW1(nazwa):
     nazwaTowaru1 = content[54].split()[1]
     ilosc1 = content[54].split()[3]
     cenaNetto1 = content[54].split()[4]
+    cenaNetto1 = cenaNetto1.replace(',', '.')
     VAT1 = content[54].split()[5]
     VAT1 = float(VAT1[:-1])/100
 
     nazwaTowaru2 = content[55].split()[1]
     ilosc2 = content[55].split()[3]
     cenaNetto2 = content[55].split()[4]
+    cenaNetto2 = cenaNetto1.replace(',', '.')
     VAT2 = content[55].split()[5]
     VAT2 = float(VAT2[:-1])/100
 
     nazwaTowaru3 = content[56].split()[1]
     ilosc3 = content[56].split()[3]
     cenaNetto3 = content[56].split()[4]
+    cenaNetto3 = cenaNetto1.replace(',', '.')
     VAT3 = content[56].split()[5]
     VAT3 = float(VAT3[:-1])/100
 
@@ -162,8 +168,10 @@ def DatafromTextW3(nazwa):
     miasto = content[14].split()[1]
 
     dataWystawienia = content[2].split(None, 2)[2]
+    dataWystawienia = datetime.datetime.strptime(dataWystawienia, '%d-%m-%Y').strftime('%Y-%m-%d')
 
     dataSprzedazy = content[3].split()[5]
+    dataSprzedazy = datetime.datetime.strptime(dataSprzedazy, '%d-%m-%Y').strftime('%Y-%m-%d')
 
     sprzedawcaImie = content[12].split(None, 4)[0]
     sprzedawcaNazwisko = content[12].split()[1] + " " + content[12].split()[2] + "." + content[12].split()[3]
