@@ -323,6 +323,12 @@ def Data_edit_form(request, personal_data_id):
 
 
 @login_required
+def Select_pattern(request):
+    return render(request, 'faktury/wybierzwzor.html', { })
+
+
+#unused
+@login_required
 def upload_with_image(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -338,6 +344,165 @@ def upload_with_image(request):
                 data = DatafromTextW2("text_result2.txt")
             else:
                 data = DatafromTextW3("text_result2.txt")
+            # wyłuskanie danych ze skanu
+            seller_city = City.create(data[7], data[6])
+            seller_city.save()
+            seller_address = Address.create_no_ap_number(data[9], data[8], seller_city)
+            seller_address.save()
+            buyer_city = City.create(data[13], data[12])
+            buyer_city.save()
+            buyer_address = Address.create_no_ap_number(data[15], data[14], buyer_city)
+            buyer_address.save()
+            seller = Personal_Data.create(data[4], data[16], seller_address)
+            seller.save()
+            buyer = Personal_Data.create_no_nip(data[10], buyer_address)
+            buyer.save()
+            invoice = Invoice.create(data[0], data[2], data[2], data[3], seller, buyer)
+            invoice.user = request.user
+            invoice.save()
+            #data19 = data[19].split(",", 1)
+            #d19 = float(data19[0]) + float(data19[1])/100
+            service1 = Service.create(data[17], data[19], data[20])
+            service1.save()
+            addservice1 = Service_Invoice.create(service1, data[18], invoice)
+            addservice1.save()
+            if data[21] != " ":
+                #data23 = data[23].split(",", 1)
+                #d23 = float(data23[0]) + float(data23[1]) / 100
+                service2 = Service.create(data[21], data[23], data[24])
+                service2.save()
+                addservice2 = Service_Invoice.create(service2, data[22], invoice)
+                addservice2.save()
+            if data[25] != " ":
+                #data27 = data[27].split(",", 1)
+                #d27 = float(data27[0]) + float(data27[1]) / 100
+                service3 = Service.create(data[25], data[27], data[28])
+                service3.save()
+                addservice3 = Service_Invoice.create(service3, data[26], invoice)
+                addservice3.save()
+            return redirect('faktury:lista')
+    else:
+        form = UploadFileForm(request.POST, request.FILES)
+    return render(request, 'faktury/dodajskan.html', {'form': form})
+
+
+@login_required
+def upload_with_image1(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            folder = 'uploads/'
+            fs = FileSystemStorage(location=folder)
+            filename = fs.save(file.name, file)
+            textRecognition(folder + filename)
+            data = DatafromTextW1("text_result2.txt")
+            # wyłuskanie danych ze skanu
+            seller_city = City.create(data[7], data[6])
+            seller_city.save()
+            seller_address = Address.create_no_ap_number(data[9], data[8], seller_city)
+            seller_address.save()
+            buyer_city = City.create(data[13], data[12])
+            buyer_city.save()
+            buyer_address = Address.create_no_ap_number(data[15], data[14], buyer_city)
+            buyer_address.save()
+            seller = Personal_Data.create(data[4], data[16], seller_address)
+            seller.save()
+            buyer = Personal_Data.create_no_nip(data[10], buyer_address)
+            buyer.save()
+            invoice = Invoice.create(data[0], data[2], data[2], data[3], seller, buyer)
+            invoice.user = request.user
+            invoice.save()
+            #data19 = data[19].split(",", 1)
+            #d19 = float(data19[0]) + float(data19[1])/100
+            service1 = Service.create(data[17], data[19], data[20])
+            service1.save()
+            addservice1 = Service_Invoice.create(service1, data[18], invoice)
+            addservice1.save()
+            if data[21] != " ":
+                #data23 = data[23].split(",", 1)
+                #d23 = float(data23[0]) + float(data23[1]) / 100
+                service2 = Service.create(data[21], data[23], data[24])
+                service2.save()
+                addservice2 = Service_Invoice.create(service2, data[22], invoice)
+                addservice2.save()
+            if data[25] != " ":
+                #data27 = data[27].split(",", 1)
+                #d27 = float(data27[0]) + float(data27[1]) / 100
+                service3 = Service.create(data[25], data[27], data[28])
+                service3.save()
+                addservice3 = Service_Invoice.create(service3, data[26], invoice)
+                addservice3.save()
+            return redirect('faktury:lista')
+    else:
+        form = UploadFileForm(request.POST, request.FILES)
+    return render(request, 'faktury/dodajskan.html', {'form': form})
+
+
+@login_required
+def upload_with_image2(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            folder = 'uploads/'
+            fs = FileSystemStorage(location=folder)
+            filename = fs.save(file.name, file)
+            textRecognition(folder + filename)
+            data = DatafromTextW2("text_result2.txt")
+            # wyłuskanie danych ze skanu
+            seller_city = City.create(data[7], data[6])
+            seller_city.save()
+            seller_address = Address.create_no_ap_number(data[9], data[8], seller_city)
+            seller_address.save()
+            buyer_city = City.create(data[13], data[12])
+            buyer_city.save()
+            buyer_address = Address.create_no_ap_number(data[15], data[14], buyer_city)
+            buyer_address.save()
+            seller = Personal_Data.create(data[4], data[16], seller_address)
+            seller.save()
+            buyer = Personal_Data.create_no_nip(data[10], buyer_address)
+            buyer.save()
+            invoice = Invoice.create(data[0], data[2], data[2], data[3], seller, buyer)
+            invoice.user = request.user
+            invoice.save()
+            #data19 = data[19].split(",", 1)
+            #d19 = float(data19[0]) + float(data19[1])/100
+            service1 = Service.create(data[17], data[19], data[20])
+            service1.save()
+            addservice1 = Service_Invoice.create(service1, data[18], invoice)
+            addservice1.save()
+            if data[21] != " ":
+                #data23 = data[23].split(",", 1)
+                #d23 = float(data23[0]) + float(data23[1]) / 100
+                service2 = Service.create(data[21], data[23], data[24])
+                service2.save()
+                addservice2 = Service_Invoice.create(service2, data[22], invoice)
+                addservice2.save()
+            if data[25] != " ":
+                #data27 = data[27].split(",", 1)
+                #d27 = float(data27[0]) + float(data27[1]) / 100
+                service3 = Service.create(data[25], data[27], data[28])
+                service3.save()
+                addservice3 = Service_Invoice.create(service3, data[26], invoice)
+                addservice3.save()
+            return redirect('faktury:lista')
+    else:
+        form = UploadFileForm(request.POST, request.FILES)
+    return render(request, 'faktury/dodajskan.html', {'form': form})
+
+
+@login_required
+def upload_with_image3(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            folder = 'uploads/'
+            fs = FileSystemStorage(location=folder)
+            filename = fs.save(file.name, file)
+            textRecognition(folder + filename)
+            data = DatafromTextW3("text_result2.txt")
             # wyłuskanie danych ze skanu
             seller_city = City.create(data[7], data[6])
             seller_city.save()
