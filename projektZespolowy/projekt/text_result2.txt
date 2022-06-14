@@ -1,25 +1,25 @@
-Faktura nr: 12/13
+Faktura nr: FV 1/11/20/A
 
-Miejsce wystawienia: Braniewo
-Data wystawienia: 2020-12-12
-Data sprzeda¿y: 2020-12-12
+Data wystawienia: 25-11-2020
+Data sprzeda¿y / wykonania us³ugi: 25-11-2020
+
+ 
+
+ 
 
  
 
 Sprzedawca Nabywca
-Bartosz Beksa Jakub Pilimon
-Zielona 8/3 Moniuszki 8/3
-
-14-500 Braniewo
-NIP: 1234567890
-
-14-500 Braniewo
-
- 
-
- 
-
- 
+LTB sp. z o.o. Nazwa kontrahenta
+ul. Drukarska 38 ul. Wiejska 5-7
+53-312 Wroc³aw 00-000 Warszawa
+NIP: PL8942982467 NIP: PLO
+Bank: Meritum Bank
+Konto: PL99 9999 9999 9999 9999 9999 9999
+Swift: FFFFFFF Waluta konta: PLN
+P³atnoœæ: Barter
+Lp. |Nazwa towaru lub us³ugi | um. | noœæ Cena netto |Vat(%) I Wartoœæ netto
+1 Us³uga numer 1 I szt 1 1 000,00 PLN I 23% 1 000,00 PLN
 
  
 
@@ -27,23 +27,23 @@ NIP: 1234567890
 
  
 
-Lp. Nazwa towaru / us³ugi Iloœæ Cena netto — VAT Wartoœæ netto — Wartoœæ VAT  Wartoœæ brutto
-1. Kajzerka 5 0.20 23.00%  1.00 0.23 1.23
-2. Chleb 12 2.99 23.00%  35.88 8.25 44.13
-Razem x 36.88 8.48 45.36
-W tym 23% 36.88 8.48 45.36
-8% 0 0 0
-5% 0 0 0
-Razem: 45.36 PLN czterdzieœci piêæ przecinek trzydzieœci szeœæ PLN
-Do zap³aty: 45.36 PLN
+Zap³acono:  0,00 PLN
+Do zap³aty: 41 230,00 PLN
 
-Termin zap³aty: 2020-12-12
-Data wystawienia: 2020-12-12
+S³ownie: jeden tysi¹c dwieœcie trzydzieœci
+PLN 00 / 100
 
- 
+(osoba upowa¿niona do wystawienia faktury)
 
-Osoba upowa¿niona do wystawienia
+Wydrukowano z programu melpe.pl
+
+[ osnownie Ao Jrane J ]
+
+- | - 100000PLN 230,00 PLN 1 230,00 PLN
+Razem (PLN) 1 000,00 PLN — 230,00 PLN 1.230,00 PLN
 
  
 
-Osoba upowa¿nioona do odbioru
+(osoba upowa¿niona do odbioru faktury)
+
+str. 11

@@ -1,0 +1,38 @@
+{% extends "faktury/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Select invoice with data layout closest to the one on your scan.</h1>
+	<div class="row">
+	<div class="col-md-4">
+		<div class="thumbnail">
+			<a href="{% url 'faktury:dodajskan1' %}">
+				<img src="http://127.0.0.1:8000/media/w1faktura.png" alt="Pattern1" width="250" height="400">
+				<div class="caption">
+					<p>Select pattern one.</p>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="thumbnail">
+			<a href="{% url 'faktury:dodajskan2' %}">
+				<img src="http://127.0.0.1:8000/media/w2faktura.jpg" alt="Pattern2" width="250" height="400">
+				<div class="caption">
+					<p>Select pattern two.</p>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="thumbnail">
+			<a href="{% url 'faktury:dodajskan3' %}">
+				<img src="http://127.0.0.1:8000/media/w3faktura.jpg" alt="Pattern3" width="250" height="400">
+				<div class="caption">
+					<p>Select pattern three.</p>
+				</div>
+			</a>
+		</div>
+	</div>
+	</div>
+</div>
+{% endblock content %}
