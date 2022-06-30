@@ -1,6 +1,6 @@
 import os
 import datetime
-
+from decimal import Decimal
 
 #wzorfaktury4.png i 4v2 TYLKO na 3 produkty
 def DatafromTextW1(nazwa):
@@ -168,6 +168,7 @@ def DatafromTextW3(nazwa):
     miasto = content[14].split()[1]
 
     dataWystawienia = content[2].split(None, 2)[2]
+    dataWystawienia = dataWystawienia[:-1]
     dataWystawienia = datetime.datetime.strptime(dataWystawienia, '%d-%m-%Y').strftime('%Y-%m-%d')
 
     dataSprzedazy = content[3].split()[5]
@@ -196,6 +197,7 @@ def DatafromTextW3(nazwa):
     nazwaTowaru1 = content[21].split()[1] + " " + content[21].split()[2] + " " + content[21].split()[3]
     ilosc1 = content[21].split()[6]
     cenaNetto1 = content[21].split()[7] + content[21].split()[8]
+    cenaNetto1 = Decimal(str(cenaNetto1[:-3]))
     VAT1 = content[21].split()[11]
     VAT1 = float(VAT1[:-1])/100
 
